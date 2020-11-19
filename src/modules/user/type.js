@@ -1,7 +1,5 @@
 const { gql } = require('apollo-server');
 
-// The GraphQL schema
-// Similar to routs
 module.exports = gql`
   type User {
     username: String!

@@ -15,7 +15,7 @@
     "nodemon": "^2.0.6"
   },
   "scripts": {
-    "dev": "nodemon src/shared/infra/http/server.js",
+    "dev": "nodemon src/infra/http/server.js",
     "start": "node server.js"
   },
   "keyWords": [],
