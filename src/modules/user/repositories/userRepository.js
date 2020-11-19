@@ -1,5 +1,6 @@
 const { User } = require('../../../infra/database/models');
 
+
 async function create({
   username,
   email,
