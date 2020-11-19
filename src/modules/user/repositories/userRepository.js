@@ -1,24 +1,30 @@
 const { User } = require('../../../infra/database/models');
 
+class UserRepository {
+  constructor() {
 
-async function create({
-  username,
-  email,
-  password
-}) {
-  return await User.create({
+  }
+
+  async create({
     username,
     email,
     password
-  })
+  }) {
+    return await User.create({
+      username,
+      email,
+      password
+    })
+  }
+  
+  async findOne(args) {
+    return await User.findOne(args);
+  }
+  
+  async findAll() {
+    return await User.findAll();
+  }
+  
 }
 
-async function findOne(args) {
-  return await User.findOne(args);
-}
-
-async function findAll() {
-  return await User.findAll();
-}
-
-module.exports = { create, findOne, findAll }
+module.exports = UserRepository
