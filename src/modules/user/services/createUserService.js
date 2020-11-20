@@ -9,20 +9,24 @@ class CreateUserService {
   }
 
   async create({
-    username,
+    userName,
     email,
     password,
+    birthDate,
     confirmPassword,
     imageUrl
   }) {
     let errors = {};
 
     try {
+
+      birthDate = new Date(birthDate); 
   
       const schema = yup.object().shape({
-        username: yup.string().transform((value, originalValue) => (/\s/.test(originalValue) ? "" : value)).required('user name must not be empty'),
+        userName: yup.string().transform((value, originalValue) => (/\s/.test(originalValue) ? "" : value)).required('user name must not be empty'),
         email: yup.string().email().required('Type a valid email'),
-        password: yup.string().required('Type a valid password'),
+        birthDate: yup.date().required('Type a valid birth date'),
+        password: yup.string().transform((value, originalValue) => (/\s/.test(originalValue) ? "" : value)).required('Type a valid password'),
         confirmPassword: yup.string().oneOf(
           [yup.ref('password')],
           'Password confirmation is incorrect'
@@ -30,8 +34,9 @@ class CreateUserService {
       });
   
       await schema.validate({
-        username,
+        userName,
         email,
+        birthDate,
         password,
         confirmPassword,
         imageUrl
@@ -42,10 +47,10 @@ class CreateUserService {
       
 
       // Check if users exists
-      const userByUsername = await this.userRepository.findOne({ where: { username } });
-      const userByEmail = await this.userRepository.findOne({ where: { email } });
+      const userByUserName = await this.userRepository.findByName(userName);
+      const userByEmail = await this.userRepository.findByEmail(email);
   
-      if (userByUsername) errors.username = 'Username is taken';
+      if (userByUserName) errors.userName = 'User name is taken';
       if (userByEmail) errors.email = 'Email is taken';
   
       if (Object.keys(errors).length > 0) {
@@ -56,12 +61,13 @@ class CreateUserService {
   
       // Creates a user on database
       const user = await this.userRepository.create({
-        username,
+        userName,
         email,
+        birthDate,
         password
       });
   
-      return user.toJSON();
+      return user;
   
     } catch (err) {
       console.log(err);

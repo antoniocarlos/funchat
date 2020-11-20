@@ -6,7 +6,9 @@
   "dependencies": {
     "apollo-server": "^2.19.0",
     "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
     "graphql": "^15.4.0",
+    "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.2.5",
     "sequelize": "^6.3.5",
     "tsyringe": "^4.4.0",
@@ -19,7 +21,8 @@
   "scripts": {
     "dev": "nodemon src/infra/http/server.js",
     "start": "node server.js",
-    "test": "jest"
+    "test": "jest",
+    "clear_jest": "jest --clearCache"
   },
   "keyWords": [],
   "author": "AntonioThiele"

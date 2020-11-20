@@ -1,5 +1,5 @@
+require('dotenv').config();
 const { ApolloServer } = require('apollo-server');
-
 const { sequelize } = require('../database/models');
 
 const resolvers = require('./graphql/resolvers');

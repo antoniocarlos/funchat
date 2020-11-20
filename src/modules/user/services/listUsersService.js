@@ -1,4 +1,4 @@
-class listUsersService {
+class ListUsersService {
 
   constructor(repository) {
     this.userRepository = repository;
@@ -15,4 +15,4 @@ class listUsersService {
 }
 
 
-module.exports = listUsersService;
+module.exports = ListUsersService;

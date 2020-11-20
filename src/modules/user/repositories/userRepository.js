@@ -6,25 +6,54 @@ class UserRepository {
   }
 
   async create({
-    username,
+    userName,
     email,
-    password
+    birthDate,
+    password,
+    imageUrl
   }) {
-    return await User.create({
-      username,
+    const user = await User.create({
+      userName,
       email,
-      password
-    })
+      birthDate,
+      password,
+      imageUrl
+    });
+
+    return this.convertUser(user);
   }
-  
-  async findOne(args) {
-    return await User.findOne(args);
+
+
+  async findByName(userName) {
+    const user = await User.findOne({ where: { userName } });
+
+    return user ? this.convertUser(user):user;
   }
-  
+
+  async findByEmail(email) {
+    const user = await User.findOne({ where: { email } });
+
+    return user ? this.convertUser(user):user;
+  }
+
   async findAll() {
-    return await User.findAll();
+
+    const users = await User.findAll();
+    const JSONUsers = users.map(user => this.convertUser(user));
+    return JSONUsers;
   }
-  
+
+  convertUser(user) {
+    const convertedUser = {
+      ...user.toJSON(),
+      birthDate: user.birthDate.toISOString(),
+      createdAt: user.createdAt.toISOString(),
+      updatedAt: user.updatedAt.toISOString()
+    }
+
+    return convertedUser;
+  }
+
 }
 
 module.exports = UserRepository
