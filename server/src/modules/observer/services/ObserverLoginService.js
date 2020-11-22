@@ -1,4 +1,4 @@
-const { UserInputError, AuthenticationError } = require('apollo-server');
+const { UserInputError } = require('apollo-server');
 const jwt = require('jsonwebtoken');
 
 
@@ -16,7 +16,7 @@ class ObserverLoginService {
 
       // Validate input data
       if (observerName.trim() === '') {
-        errors.email = 'O nome de observador deve ser preenchido'
+        errors.observerName = 'O nome de observador deve ser preenchido'
       }
 
       if (Object.keys(errors).length > 0) {
@@ -28,10 +28,12 @@ class ObserverLoginService {
         throw new UserInputError('Este nome de observador já está em uso', { errors })
       }
 
-      const observer =  await this.observerRepository.create(observerName);
+      const observer = await this.observerRepository.create(observerName);
+      
+      const type = "observer";
 
-      const token = jwt.sign({ observerName }, process.env.JWT_SECRET);
-
+      const token = jwt.sign({ name:observerName, type }, process.env.JWT_SECRET);
+      
       const returnObserver = {
         ...observer,
         token

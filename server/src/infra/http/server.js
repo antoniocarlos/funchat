@@ -2,11 +2,14 @@ require('dotenv').config();
 const { ApolloServer } = require('apollo-server');
 const { sequelize } = require('../database/models');
 
+const contextMiddleware = require('../../middleware/authenticateMiddleware')
+
 const schema = require('./graphql/schema');
 
 const server = new ApolloServer({
   schema,
-  playground: process.env.NODE_ENV === "development"
+  playground: process.env.NODE_ENV === "development",
+  context: contextMiddleware
 });
 
 /** 

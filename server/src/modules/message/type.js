@@ -1,25 +1,22 @@
 const { GraphQLObjectType, GraphQLNonNull, GraphQLString } = require('graphql');
 
 const graphQLObjectType = new GraphQLObjectType({
-  name: 'User',
+  name: 'Message',
   fields: {
-    userName: {
+    uuid: {
       type: GraphQLNonNull(GraphQLString)
     },
-    email: {
+    userId: {
       type: GraphQLNonNull(GraphQLString)
     },
-    birthDate: {
+    content: {
+      type: GraphQLNonNull(GraphQLString)
+    },
+    chatRoomId: {
       type: GraphQLNonNull(GraphQLString)
     },
     createdAt: {
       type: GraphQLNonNull(GraphQLString)
-    },
-    updatedAt: {
-      type: GraphQLNonNull(GraphQLString)
-    },
-    token: {
-      type: GraphQLString
     }
   }
 });

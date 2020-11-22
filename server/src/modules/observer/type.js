@@ -1,18 +1,21 @@
-const { gql } = require('apollo-server');
+const { GraphQLObjectType, GraphQLNonNull, GraphQLString } = require('graphql');
 
-module.exports = gql`
-  type Observer {
-    observerName: String!
-    createdAt: String!
-    updatedAt: String!
-    token: String
+const graphQLObjectType = new GraphQLObjectType({
+  name: 'Observer',
+  fields: {
+    observerName: {
+      type: GraphQLNonNull(GraphQLString)
+    },
+    createdAt: {
+      type: GraphQLNonNull(GraphQLString)
+    },
+    updatedAt: {
+      type: GraphQLNonNull(GraphQLString)
+    },
+    token: {
+      type: GraphQLString
+    }
   }
-  type Query {
-    getObservers: [Observer]!
-    observerLogin(observerName: String!): Observer!
-    observerLogoff(observerName: String!): Observer!
-  }
-  type Mutation {
-    register(): Observer!
-  }
-`;
+});
+
+module.exports = graphQLObjectType;

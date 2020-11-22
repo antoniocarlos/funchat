@@ -1,7 +1,11 @@
-const userQuery = require('./user/query');
-const observerQuery = require('./observer/query');
+const {userQueries} = require('./user');
+const {observerQueries} = require('./observer');
+const {messageQueries} = require('./message');
+const {chatRoomQueries} = require('./chatRoom');
 
 module.exports = {
-  ...userQuery,
-  ...observerQuery
+  ...userQueries,
+  ...observerQueries,
+  ...messageQueries,
+  ...chatRoomQueries
 }

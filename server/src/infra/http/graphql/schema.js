@@ -1,9 +1,9 @@
-import { GraphQLSchema, GraphQLObjectType } from 'graphql';
+const { GraphQLSchema, GraphQLObjectType } = require('graphql');
 
-import rootQuery from "./modules/rootQuery";
-import rootMutation from "./modules/rootMutation";
+const rootQuery = require("../../../modules/rootQuery");
+const rootMutation = require("../../../modules/rootMutation");
 
-export default new GraphQLSchema({
+const graphQLSchema = new GraphQLSchema({
   query: new GraphQLObjectType({
     name: "RootQueryType",
     fields: {
@@ -18,3 +18,5 @@ export default new GraphQLSchema({
   })
 
 })
+
+module.exports = graphQLSchema;

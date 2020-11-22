@@ -30,6 +30,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true
       },
+      chatRoomId: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

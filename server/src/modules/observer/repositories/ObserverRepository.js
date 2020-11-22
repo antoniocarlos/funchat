@@ -5,22 +5,22 @@ class ObserverRepository {
 
   }
 
-  async create({
+  async create(
     observerName
-  }) {
+  ) {
     const observer = await Observer.create({
       observerName
     });
-
     return this.convertObserver(observer);
   }
 
-
   async findByName(observerName) {
     const observer = await Observer.findOne({ where: { observerName } });
-
-    return observer ? this.convertObserver(observer):observer;
+    console.log(`inter ${observer}`)
+    return observer ? this.convertObserver(observer):null;
+    
   }
+  
 
   async findAll() {
     const observers = await Observer.findAll();
@@ -34,6 +34,33 @@ class ObserverRepository {
     });
     const JSONObservers = observers.map(observer => this.convertObserver(observer));
     return JSONObservers;
+  }
+
+  async updateChatRoom(observerName, chatRoomId) {
+
+    await Observer.update(
+      {
+        chatRoomId
+      },
+      {
+        where:
+        {
+          observerName
+        }
+      })
+
+  }
+
+  async delete(observerName) {
+
+    await Observer.destroy(
+      {
+        where:
+        {
+          observerName
+        }
+      });
+
   }
 
   convertObserver(observer) {

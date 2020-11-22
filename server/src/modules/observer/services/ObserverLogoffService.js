@@ -1,4 +1,4 @@
-const { UserInputError, AuthenticationError } = require('apollo-server');
+const { UserInputError } = require('apollo-server');
 //const jwt = require('jsonwebtoken');
 
 
@@ -30,7 +30,7 @@ class ObserverLogoffService {
         throw new UserInputError('Observador não encontrado', { errors })
       }
 
-      //observer =  await this.observerRepository.delete(observerName);
+      await this.observerRepository.delete(observerName);
 
       return observer
     } catch (err) {

@@ -1,5 +1,5 @@
 const { UserInputError } = require('apollo-server');
-const { Yup, getValidationErrors } = require('yup');
+//const { Yup, getValidationErrors } = require('yup');
 const bcrypt = require('bcryptjs');
 
 class CreateUserService {
@@ -19,31 +19,6 @@ class CreateUserService {
     let errors = {};
 
     try {
-
-      /**
-            const schema = Yup.object().shape({
-              userName: Yup.string().transform((value, originalValue) => (/\s/.test(originalValue) ? "" : value)).required('user name must not be empty'),
-              email: Yup.string().email().required('Type a valid email'),
-              birthDate: Yup.date().required('Type a valid birth date'),
-              password: Yup.string().transform((value, originalValue) => (/\s/.test(originalValue) ? "" : value)).required('Type a valid password'),
-              confirmPassword: Yup.string().oneOf(
-                [Yup.ref('password')],
-                'Password confirmation is incorrect'
-              )
-            });
-      
-            await schema.validate({
-              userName,
-              email,
-              birthDate,
-              password,
-              confirmPassword,
-              imageUrl
-            }, {
-              abortEarly: false,
-            });
-      
-      */
 
       // Validate input data
       if (email.trim() === '') {
@@ -72,7 +47,7 @@ class CreateUserService {
       // Check if users exists
       const userByUserName = await this.userRepository.findByName(userName);
       const userByEmail = await this.userRepository.findByEmail(email);
-
+      console.log("passou?");
       if (userByUserName) errors.userName = 'Esse nome de usuário já existe';
       if (userByEmail) errors.email = 'Esse email já existe';
 
@@ -88,13 +63,15 @@ class CreateUserService {
         userName,
         email,
         birthDate,
-        password
+        password,
+        imageUrl
       });
 
       return user;
 
     } catch (err) {
-      console.log(errors);
+      
+      console.log("error " + JSON.stringify(err));
       throw new UserInputError('Bad input', { errors });
     }
   }

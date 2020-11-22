@@ -1,7 +1,11 @@
-const userMutations = require('./user/mutation');
-const observerMutations = require('./observer/mutation');
+const {userMutations} = require('./user');
+const {observerMutations} = require('./observer');
+const {messageMutations} = require('./message');
+const {chatRoomMutations} = require('./chatRoom');
 
 module.exports = {
   ...userMutations,
-  ...observerMutations
+  ...observerMutations,
+  ...messageMutations,
+  ...chatRoomMutations
 }

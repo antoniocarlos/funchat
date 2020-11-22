@@ -1,21 +1,29 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('observers', {
+    await queryInterface.createTable('messages', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      observerName: {
-        type: Sequelize.STRING,
+      uuid: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         allowNull: false,
-        unique: true
+      },
+      userId: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      content: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
       chatRoomId: {
         type: Sequelize.STRING,
-        allowNull: true
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
@@ -28,6 +36,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('observers');
+    await queryInterface.dropTable('messages');
   }
 };

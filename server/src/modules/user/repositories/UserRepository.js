@@ -27,13 +27,13 @@ class UserRepository {
   async findByName(userName) {
     const user = await User.findOne({ where: { userName } });
 
-    return user ? this.convertUser(user):user;
+    return user ? this.convertUser(user) : user;
   }
 
   async findByEmail(email) {
     const user = await User.findOne({ where: { email } });
 
-    return user ? this.convertUser(user):user;
+    return user ? this.convertUser(user) : user;
   }
 
   async findAll() {
@@ -48,6 +48,21 @@ class UserRepository {
     });
     const JSONUsers = users.map(user => this.convertUser(user));
     return JSONUsers;
+  }
+
+  async updateChatRoom(userName, chatRoomId) {
+
+    await User.update(
+      {
+        chatRoomId
+      },
+      {
+        where:
+        {
+          userName
+        }
+      })
+
   }
 
   convertUser(user) {

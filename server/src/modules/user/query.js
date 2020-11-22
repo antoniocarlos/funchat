@@ -8,12 +8,12 @@ const userLoginService = new UserLoginService(userRepository);
 
 module.exports = {
   getUsers: async () => {
-    return listUsersService.listAll();
+    return await listUsersService.listAll();
   },
   login: async (_, args) => {
     const{email, password} = args;
 
-    const user = userLoginService.login(email, password);
+    const user = await userLoginService.login(email, password);
 
     return user;
   }

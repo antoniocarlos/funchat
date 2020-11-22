@@ -1,4 +1,4 @@
-const { UserInputError, AuthenticationError } = require('apollo-server');
+const { UserInputError } = require('apollo-server');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -38,10 +38,12 @@ class UserLoginService {
 
       if (!correctPassword) {
         errors.password = 'Senha incorreta';
-        throw new AuthenticationError('Senha incorreta', { errors });
+        throw new UserInputError('Senha incorreta', { errors });
       }
 
-      const token = jwt.sign({ email }, process.env.JWT_SECRET);
+      const type = "user";
+
+      const token = jwt.sign({ name: user.userName, email, type }, process.env.JWT_SECRET);
 
       const returnUser = {
         ...user,

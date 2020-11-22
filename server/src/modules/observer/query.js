@@ -10,16 +10,16 @@ const observerLogoffService = new ObserverLogoffService(observerRepository);
 
 module.exports = {
   getObservers: async () => {
-    return listObserversService.listAll();
+    return await listObserversService.listAll();
   },
   observerLogin: async (_, args) => {
     const{observerName} = args;
-    const observer = observerLoginService.login(observerName);
+    const observer = await observerLoginService.login(observerName);
     return observer;
   },
   observerLogoff: async (_, args) => {
     const{observerName} = args;
-    const observer = observerLogoffService.logoff(observerName);
+    const observer = await observerLogoffService.logoff(observerName);
     return observer;
   }
 }

@@ -3,31 +3,28 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Observer extends Model {
+  class ChatRoom extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ ChatRoom }) {
+    static associate({ User, Observer, Message }) {
       // define association here
-      this.belongsTo(ChatRoom, { foreignKey: 'chatRoomId' })
+      this.hasMany(User, { as: 'users' }) // users
+      this.hasMany(Observer, { as: 'observers' }) // observers
+      this.hasMany(Message, { as: 'messages' }) // messages
     }
   };
-  Observer.init({
-    observerName: {
+  ChatRoom.init({
+    name: {
       type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
-    },
-    chatRoomId : {
-      type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false
     }
   }, {
     sequelize,
-    modelName: 'Observer',
-    tableName: 'observers'
+    modelName: 'ChatRoom',
+    tableName: 'chatRooms',
   });
-  return Observer;
+  return ChatRoom;
 };

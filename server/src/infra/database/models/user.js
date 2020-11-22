@@ -9,8 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+    static associate({ Message, ChatRoom }) {
       // define association here
+      this.hasMany(Message, { as: 'messages' }) // messages
+      this.belongsTo(ChatRoom, { foreignKey: 'chatRoomId' })
     }
   };
   User.init({
@@ -33,6 +35,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     imageUrl : {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    chatRoomId : {
       type: DataTypes.STRING,
       allowNull: true,
     }
