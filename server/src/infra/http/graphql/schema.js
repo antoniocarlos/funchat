@@ -2,6 +2,7 @@ const { GraphQLSchema, GraphQLObjectType } = require('graphql');
 
 const rootQuery = require("../../../modules/rootQuery");
 const rootMutation = require("../../../modules/rootMutation");
+const rootSubscription = require("../../../modules/rootSubscription");
 
 const graphQLSchema = new GraphQLSchema({
   query: new GraphQLObjectType({
@@ -15,8 +16,13 @@ const graphQLSchema = new GraphQLSchema({
     fields: {
       ...rootMutation
     }
+  }),
+  subscription: new GraphQLObjectType({
+    name: "RootSubscriptionType",
+    fields: {
+      ...rootSubscription
+    }
   })
-
 })
 
 module.exports = graphQLSchema;

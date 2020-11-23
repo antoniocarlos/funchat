@@ -2,7 +2,7 @@ require('dotenv').config();
 const { ApolloServer } = require('apollo-server');
 const { sequelize } = require('../database/models');
 
-const contextMiddleware = require('../../middleware/authenticateMiddleware')
+const contextMiddleware = require('../../middleware/contextMiddleware')
 
 const schema = require('./graphql/schema');
 

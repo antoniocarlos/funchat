@@ -48,7 +48,6 @@ class ObserverRepository {
           observerName
         }
       })
-
   }
 
   async delete(observerName) {

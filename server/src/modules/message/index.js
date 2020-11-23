@@ -1,8 +1,9 @@
-const { GraphQLString, GraphQLList, GraphQLNonNull } = require('graphql');
+const { GraphQLString, GraphQLList, GraphQLNonNull, graf } = require('graphql');
 const Type = require("./type");
 
 const query = require('./query');
 const mutation = require('./mutation');
+const subscription = require('./subscription');
 
 const messageQueries = {
   getMessages: {
@@ -38,4 +39,11 @@ const messageMutations = {
   }
 };
 
-module.exports = {messageQueries, messageMutations};
+const messageSubscriptions = {
+  newMessage: {
+    type: Type,
+    resolve: subscription.subscribe,
+  }
+};
+
+module.exports = {messageQueries, messageMutations, messageSubscriptions};

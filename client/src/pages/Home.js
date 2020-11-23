@@ -1,14 +1,13 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState } from 'react'
 import { Row, Col, Form, Button } from 'react-bootstrap'
 import { gql, useLazyQuery } from '@apollo/client'
 import { Link } from 'react-router-dom'
 
-
+import { useAuthDispatch } from '../context/auth'
 
 const LOGIN_OBSERVER = gql`
   query observerLogin($observerName: String!) {
     observerLogin(observerName: $observerName) {
-      observerName
       token
   }
 }
@@ -32,10 +31,12 @@ export default function Home(props) {
 
   const [errors, setErrors] = useState({})
 
+  const dispatch = useAuthDispatch()
+
   const [loginObserver, { loading: loadingObserver }] = useLazyQuery(LOGIN_OBSERVER, {
     onError: (err) => setErrors(err.graphQLErrors[0].extensions.errors),
     onCompleted(data) {
-      localStorage.setItem('token', data.observerLogin.token)
+      dispatch({ type: 'LOGIN', payload: data.observerLogin })
       props.history.push('/chats')
     },
   })
@@ -43,7 +44,7 @@ export default function Home(props) {
   const [loginUser, { loading: loadingUser }] = useLazyQuery(LOGIN_USER, {
     onError: (err) => setErrors(err.graphQLErrors[0].extensions.errors),
     onCompleted(data) {
-      localStorage.setItem('token', data.login.token)
+      dispatch({ type: 'LOGIN', payload: data.login })
       props.history.push('/chats')
     },
   })
@@ -60,75 +61,79 @@ export default function Home(props) {
   }
 
   return (
-    <>
-      <Row className="bg-white py-5 justify-content-center">
-        <Col sm={8} md={6} lg={4}>
-          <h1 className="text-center">Observador</h1>
-          <Form onSubmit={submitObserverLoginForm}>
-            <Form.Group>
-              <Form.Label className={errors.observerName && 'text-danger'}>
-                {errors.observerName ?? 'Apelido de observador'}
-              </Form.Label>
-              <Form.Control
-                type="text"
-                value={variables.observerName}
-                className={errors.observerName && 'is-invalid'}
-                onChange={(e) =>
-                  setVariables({ ...variables, observerName: e.target.value })
-                }
-              />
-            </Form.Group>
-            <div className="text-center">
-            <Button variant="success" type="submit" disabled={loadingObserver}>
-                {loadingObserver ? 'Carregando..' : 'Entrar'}
-              </Button>
-            </div>
-          </Form>
-        </Col>
-      </Row>
 
-      <Row className="bg-white py-5 justify-content-center">
-        <Col sm={8} md={6} lg={4}>
-          <h1 className="text-center">Usuário cadastrado</h1>
-          <Form onSubmit={submitUserLoginForm}>
-            <Form.Group>
-              <Form.Label className={errors.email && 'text-danger'}>
-                {errors.email ?? 'email'}
-              </Form.Label>
-              <Form.Control
-                type="text"
-                value={variables.email}
-                className={errors.email && 'is-invalid'}
-                onChange={(e) =>
-                  setVariables({ ...variables, email: e.target.value })
-                }
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label className={errors.password && 'text-danger'}>
-                {errors.password ?? 'Senha'}
-              </Form.Label>
-              <Form.Control
-                type="password"
-                value={variables.password}
-                className={errors.password && 'is-invalid'}
-                onChange={(e) =>
-                  setVariables({ ...variables, password: e.target.value })
-                }
-              />
-            </Form.Group>
-            <div className="text-center">
-            <Button variant="success" type="submit" disabled={loadingUser}>
-                {loadingUser ? 'carregando..' : 'Entrar'}
-              </Button>
-              <br />
-              <small>
-                Não tem uma conta? <Link to="/register">Registrar</Link>
-              </small>
-            </div>
-          </Form>
-        </Col>
-      </Row>
-    </>
+    <Row className="py-5 justify-content-center ">
+      <Col sm={8} md={6} lg={6}>
+        <Row className="bg-white py-5 justify-content-center mb-3">
+          <Col sm={10} md={10} lg={10}>
+            <h1 className="text-center">Observador</h1>
+            <Form onSubmit={submitObserverLoginForm}>
+              <Form.Group>
+                <Form.Label className={errors.observerName && 'text-danger'}>
+                  {errors.observerName ?? 'Apelido de observador'}
+                </Form.Label>
+                <Form.Control
+                  type="text"
+                  value={variables.observerName}
+                  className={errors.observerName && 'is-invalid'}
+                  onChange={(e) =>
+                    setVariables({ ...variables, observerName: e.target.value })
+                  }
+                />
+              </Form.Group>
+              <div className="text-center">
+                <Button variant="success" type="submit" disabled={loadingObserver}>
+                  {loadingObserver ? 'Carregando..' : 'Entrar'}
+                </Button>
+              </div>
+            </Form>
+          </Col>
+        </Row>
+
+        <Row className="bg-white py-5 justify-content-center">
+          <Col sm={10} md={10} lg={10}>
+            <h1 className="text-center">Usuário cadastrado</h1>
+            <Form onSubmit={submitUserLoginForm}>
+              <Form.Group>
+                <Form.Label className={errors.email && 'text-danger'}>
+                  {errors.email ?? 'email'}
+                </Form.Label>
+                <Form.Control
+                  type="text"
+                  value={variables.email}
+                  className={errors.email && 'is-invalid'}
+                  onChange={(e) =>
+                    setVariables({ ...variables, email: e.target.value })
+                  }
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label className={errors.password && 'text-danger'}>
+                  {errors.password ?? 'Senha'}
+                </Form.Label>
+                <Form.Control
+                  type="password"
+                  value={variables.password}
+                  className={errors.password && 'is-invalid'}
+                  onChange={(e) =>
+                    setVariables({ ...variables, password: e.target.value })
+                  }
+                />
+              </Form.Group>
+              <div className="text-center">
+                <Button variant="success" type="submit" disabled={loadingUser}>
+                  {loadingUser ? 'carregando..' : 'Entrar'}
+                </Button>
+                <br />
+                <small>
+                  Não tem uma conta? <Link to="/register">Registrar</Link>
+                </small>
+              </div>
+            </Form>
+          </Col>
+        </Row>
+      </Col>
+    </Row>
+
   )
 }
