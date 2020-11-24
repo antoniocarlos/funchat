@@ -4,24 +4,24 @@ Seja bem vindo ao FumChat!
 
 O FunChat é uma aplicação de salas de bate-papo simples e direta ao ponto. Você não precisa se cadastro para ver as conversas nem para criar novas salas. Basta fornecer um apelido de observador.
 
-Por meio de subscriptios o sistema atualiza a lista de participantes assim como as mensagens enviadas em cada sala 
-
 ![Screenshot](docs/funChat_6.gif)
 
+Por meio de subscriptios o sistema atualiza a lista de participantes assim como as mensagens enviadas em cada sala 
+
+![Screenshot](docs/funChat_7.PNG)
 
  Mas apenas usuários logados conseguem mandar mensagens.
 
-
-![Screenshot](docs/funChat_4.gif)
+![Screenshot](docs/funChat_4.PNG)
 
 
 Os tokens de validação não expiram. Uma vez logado você pode sair e voltar tranquilamente.
 
-![Screenshot](docs/funChat_1.gif)
+![Screenshot](docs/funChat_1.PNG)
 
-![Screenshot](docs/funChat_2.gif)
+![Screenshot](docs/funChat_2.PNG)
 
-![Screenshot](docs/funChat_3.gif)
+![Screenshot](docs/funChat_3.PNG)
 
 O formulário de login e de registro possuem validação para confirmar o preenchimento dos dados
 
