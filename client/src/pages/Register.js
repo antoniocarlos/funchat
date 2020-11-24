@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
-import { Row, Col, Form, Button } from 'react-bootstrap'
+import React, { useState, useCallback } from 'react'
+import { Row, Col, Form, Button, Tooltip, OverlayTrigger } from 'react-bootstrap'
 import { gql, useMutation } from '@apollo/client'
 import { Link } from 'react-router-dom'
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import 'react-day-picker/lib/style.css';
 
 const REGISTER_USER = gql`
   mutation register(
@@ -54,6 +56,18 @@ export default function Register(props) {
     registerUser({ variables })
   }
 
+  const handleFormSet = useCallback((value) => {
+
+    setVariables({ ...variables, ...value }) // ISO String, ex: "2016-11-19T12:00:00.000Z"
+
+  }, [setVariables, variables])
+
+  const handleChangeBirthDate = useCallback((day) => {
+
+    setVariables({ ...variables, birthDate: day.toISOString() }) // ISO String, ex: "2016-11-19T12:00:00.000Z"
+
+  }, [setVariables, variables])
+
   return (
     <Row className="bg-white py-5 justify-content-center">
       <Col sm={8} md={6} lg={4}>
@@ -67,9 +81,8 @@ export default function Register(props) {
               type="text"
               value={variables.userName}
               className={errors.userName && 'is-invalid'}
-              onChange={(e) =>
-                setVariables({ ...variables, userName: e.target.value })
-              }
+              onChange={(e) => handleFormSet({ userName: e.target.value })}
+              
             />
           </Form.Group>
           <Form.Group>
@@ -80,23 +93,25 @@ export default function Register(props) {
               type="email"
               value={variables.email}
               className={errors.email && 'is-invalid'}
-              onChange={(e) =>
-                setVariables({ ...variables, email: e.target.value })
-              }
+              onChange={(e) => handleFormSet({ email: e.target.value })}
             />
           </Form.Group>
           <Form.Group>
             <Form.Label className={errors.birthDate && 'text-danger'}>
               {errors.birthDate ?? 'Data de nascimento'}
             </Form.Label>
-            <Form.Control
-              type="text"
-              value={variables.birthDate}
-              className={errors.birthDate && 'is-invalid'}
-              onChange={(e) =>
-                setVariables({ ...variables, birthDate: e.target.value })
-              }
-            />
+
+
+            <div className="input-group mb-3 ">
+              <div className="input-group-prepend">
+                <span className="input-group-text">Date: </span>
+              </div>
+              <DayPickerInput
+                inputProps={{ className: 'input-group form-control' }}
+                onDayChange={day => handleChangeBirthDate(day)}
+              />
+            </div>
+
           </Form.Group>
           <Form.Group>
             <Form.Label className={errors.imageUrl && 'text-danger'}>
@@ -106,9 +121,7 @@ export default function Register(props) {
               type="text"
               value={variables.imageUrl}
               className={errors.imageUrl && 'is-invalid'}
-              onChange={(e) =>
-                setVariables({ ...variables, imageUrl: e.target.value })
-              }
+              onChange={(e) => handleFormSet({ imageUrl: e.target.value })}
             />
           </Form.Group>
           <Form.Group>
@@ -119,9 +132,7 @@ export default function Register(props) {
               type="password"
               value={variables.password}
               className={errors.password && 'is-invalid'}
-              onChange={(e) =>
-                setVariables({ ...variables, password: e.target.value })
-              }
+              onChange={(e) => handleFormSet({ password: e.target.value })}
             />
           </Form.Group>
           <Form.Group>
@@ -132,6 +143,8 @@ export default function Register(props) {
               type="password"
               value={variables.confirmPassword}
               className={errors.confirmPassword && 'is-invalid'}
+              onChange={(e) => handleFormSet({ confirmPassword: e.target.value })}
+
               onChange={(e) =>
                 setVariables({
                   ...variables,
