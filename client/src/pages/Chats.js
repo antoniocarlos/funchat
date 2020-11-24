@@ -50,7 +50,6 @@ export default function Chats({ history }) {
 
   const submitSearchField = (e) => {
     e.preventDefault()
-    console.log("test")
     history.push(`/chat/${searchField}`)
   }
 

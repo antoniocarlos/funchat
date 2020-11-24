@@ -47,7 +47,6 @@ class CreateUserService {
       // Check if users exists
       const userByUserName = await this.userRepository.findByName(userName);
       const userByEmail = await this.userRepository.findByEmail(email);
-      console.log("passou?");
       if (userByUserName) errors.userName = 'Esse nome de usuário já existe';
       if (userByEmail) errors.email = 'Esse email já existe';
 

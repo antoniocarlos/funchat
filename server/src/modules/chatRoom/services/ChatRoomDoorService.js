@@ -60,7 +60,7 @@ class ChatRoomDoorService {
       return { chatRoom, audience }
 
     } catch (err) {
-      console.log("err            " + JSON.stringify(err));
+      console.log("err " + JSON.stringify(err));
       throw new UserInputError('Bad input', { errors });
     }
   }

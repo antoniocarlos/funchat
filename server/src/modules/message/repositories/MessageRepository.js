@@ -19,7 +19,7 @@ class MessageRepository {
         chatRoomId
       });
     } catch (err) {
-      console.log(" --------         " + JSON.stringify(err))
+      console.log("err " + JSON.stringify(err))
     }
 
     //return this.convertMessage(message);

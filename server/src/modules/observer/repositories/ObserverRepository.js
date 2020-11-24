@@ -16,7 +16,6 @@ class ObserverRepository {
 
   async findByName(observerName) {
     const observer = await Observer.findOne({ where: { observerName } });
-    console.log(`inter ${observer}`)
     return observer ? this.convertObserver(observer):null;
     
   }

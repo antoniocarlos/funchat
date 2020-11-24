@@ -1,18 +1,9 @@
-//yes
-
 import React, { Fragment, useState, useEffect } from 'react';
 import { Row, Col, Image, Form } from 'react-bootstrap';
 import { useRouteMatch } from 'react-router-dom';
 import { gql, useQuery, useMutation, useSubscription } from '@apollo/client';
 import { useAuthState } from '../../context/auth'
 import Message from './Message'
-
-// const GET_OUT_CHATROOM = gql`
-//   query getOutChatRoom($chatRoom: String!) {
-//     getOutChatRoom(chatRoom: $chatRoom){}
-//   }
-// `
-
 
 const GET_CHATROOM = gql`
   query getChatRoom($chatRoom: String!) {
@@ -153,7 +144,7 @@ export default function Chat() {
       console.log("Erro ao receber audiência")
     }
     if (updatedAudienceData) {
-     
+
 
       const user = updatedAudienceData.updateAudience.user
       const observer = updatedAudienceData.updateAudience.observer
@@ -164,7 +155,7 @@ export default function Chat() {
       if (observer) {
         if (entity.type === "observer" && entity.name === observer.observerName) return
       }
-      
+
       if (user) {
         if (entity.type === "user" && entity.name === user.userName) return
       }
@@ -180,7 +171,7 @@ export default function Chat() {
       if (chatRoomIdEnter === id) {
         if (user) setUsers((old) => [user, ...old])
         if (observer) setObservers((old) => [observer, ...old])
-  
+
       }
 
       //Saida

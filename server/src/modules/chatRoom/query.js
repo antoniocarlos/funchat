@@ -22,7 +22,6 @@ module.exports = {
         if (!auth) throw new AuthenticationError('Unauthenticated');
 
         const {chatRoom, audience } = await chatRoomDoorService.openTheDoor(chatRoom_, auth.type, auth.name);
-        console.log("err        ffff    " + JSON.stringify(audience));
         pubsub.publish('UPDATE_AUDIENCE', { updateAudience: audience })
 
         return chatRoom
