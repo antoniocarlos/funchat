@@ -33,8 +33,8 @@ module.exports = gql`
     createdAt: String!
   }
   type Audience {
-    chatRoomIdEnter:String!
-    chatRoomIdOut:String!
+    chatRoomIdEnter:String
+    chatRoomIdOut:String
     user:User
     observer:Observer
   }
@@ -66,7 +66,10 @@ module.exports = gql`
       content: String!
       chatRoomName: String!
     ): Message!
+
     createChatRoom(name: String!): ChatRoom!,
+
+    checkoutChatRoom(chatRoom: String!): Audience!
   }
   type Subscription {
     newMessage: Message!

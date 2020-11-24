@@ -1,3 +1,5 @@
+const { AuthenticationError } = require('apollo-server')
+
 const ChatRoomRepository = require('./repositories/ChatRoomRepository');
 const UserRepository = require('../user/repositories/UserRepository');
 const ObserverRepository = require('../observer/repositories/ObserverRepository');
@@ -19,13 +21,15 @@ module.exports = {
     },
     getChatRoom: async (_, { chatRoom: chatRoom_ }, { auth, pubsub }) => {
       try {
+        console.log("er ********" + auth)
         if (!auth) throw new AuthenticationError('Unauthenticated');
 
-        const {chatRoom, audience } = await chatRoomDoorService.openTheDoor(chatRoom_, auth.type, auth.name);
+        const { chatRoom, audience } = await chatRoomDoorService.openTheDoor(chatRoom_, auth.type, auth.name);
         pubsub.publish('UPDATE_AUDIENCE', { updateAudience: audience })
 
         return chatRoom
       } catch (err) {
+        console.log("err ********")
         throw err
       }
     }

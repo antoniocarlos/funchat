@@ -64,6 +64,54 @@ class ChatRoomDoorService {
       throw new UserInputError('Bad input', { errors });
     }
   }
+
+  async closeTheDoor(chatRoomName, type, name) {
+    let errors = {};
+
+    try {
+
+      let user = null;
+      let observer = null;
+      let chatRoomIdOut = null;
+
+      if (type === "user") {
+        user = await this.userRepository.findByName(name)
+        if (!user) { errors.userName = 'Usuário não encontrado' };
+        chatRoomIdOut = user.chatRoomId
+      }
+
+      if (type === "observer") {
+        observer = await this.observerRepository.findByName(name)
+        if (!observer) {errors.observerName = 'Observador não encontrado'};
+        chatRoomIdOut = observer.chatRoomId
+      }
+
+      if (Object.keys(errors).length > 0) {
+        throw errors
+      }
+
+      if (type === "user") {
+        await this.userRepository.updateChatRoom(name, null)
+      }
+
+      if (type === "observer") {
+        await this.observerRepository.updateChatRoom(name, null)
+      }
+
+      const audience = {
+        chatRoomIdEnter: null,
+        chatRoomIdOut,
+        user,
+        observer,
+      }
+
+      return { audience }
+
+    } catch (err) {
+      console.log("err " + JSON.stringify(err));
+      throw new UserInputError('Bad input', { errors });
+    }
+  }
 }
 
 module.exports = ChatRoomDoorService;
