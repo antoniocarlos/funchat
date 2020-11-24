@@ -217,7 +217,7 @@ Por meio de um docker instancie um servidor mysql:5.7
 Configure o sequelize para as variáveis de seu ambiente:
 src/infra/database/config/database.js
 
-na pasta do servidor execute:
+Na pasta do servidor execute:
 ```javascript
 sequelize db:migrate
 ```
