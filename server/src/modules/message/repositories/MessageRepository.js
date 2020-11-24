@@ -38,7 +38,7 @@ class MessageRepository {
   }
 
   async findAll() {
-    const messages = await Messages.findAll();
+    const messages = await Message.findAll();
     const JSONMessages = messages.map(message => this.convertMessage(message));
     return JSONMessages.reverse();
   }
