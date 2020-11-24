@@ -5,10 +5,12 @@ const messageRepository = new MessageRepository();
 const listMessageService = new ListMessageService(messageRepository);
 
 module.exports = {
-  getMessages: async () => {
-    return await listMessageService.listAll();
-  },
-  getMessagesByChatRoom: async (_, args) => {
-    return await listMessageService.listByChatRoom(args);
+  query: {
+    getMessages: async () => {
+      return await listMessageService.listAll();
+    },
+    getMessagesByChatRoom: async (_, args) => {
+      return await listMessageService.listByChatRoom(args);
+    }
   }
 }

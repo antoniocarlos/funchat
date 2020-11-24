@@ -44,7 +44,7 @@ export default function Register(props) {
   // live cycle hooks of the mutation
   const [registerUser, { loading }] = useMutation(REGISTER_USER, {
     //update(cache, results)
-    update: (_, __) => props.history.push('/'),
+    onCompleted: (_, __) => props.history.push('/'),
     onError: (err) => setErrors(err.graphQLErrors[0].extensions.errors),
   })
 
@@ -146,7 +146,7 @@ export default function Register(props) {
             </Button>
             <br />
             <small>
-              Already have an account? <Link to="/">Login</Link>
+              Já tem uma conta? <Link to="/">Login</Link>
             </small>
           </div>
         </Form>

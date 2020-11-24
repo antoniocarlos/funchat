@@ -27,7 +27,7 @@ class UserRepository {
   async findByName(userName) {
     const user = await User.findOne({ where: { userName } });
 
-    return user ? this.convertUser(user) : user;
+    return user;
   }
 
   async findByEmail(email) {

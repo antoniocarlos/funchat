@@ -51,6 +51,7 @@ class CreateMessageService {
       }
 
       const message = await this.messageRepository.create({
+        sender: user.userName,
         userId: user.id,
         content,
         chatRoomId: chat.id

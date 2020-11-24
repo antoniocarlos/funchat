@@ -24,11 +24,12 @@ class ChatRoomRepository {
   async findByNameWithAssociations(name) {
     const chatRoom = await ChatRoom.findOne({ 
       where: { name },
+      order: [[ 'messages', 'createdAt', 'DESC']],
       include: [
         { model: User, as: 'users' },
         { model: Observer, as: 'observers' },
         { model: Message, as: 'messages' }
-      ]
+      ],
     });
     
     return chatRoom ? chatRoom.toJSON() : null;
@@ -47,7 +48,6 @@ class ChatRoomRepository {
 
   convert(obj) {
     const convertedObj = {
-      ...obj.toJSON(),
       createdAt: obj.createdAt.toISOString(),
       updatedAt: obj.updatedAt.toISOString()
     }

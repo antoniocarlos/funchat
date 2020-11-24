@@ -8,21 +8,25 @@ class ChatRoomDoorService {
     this.observerRepository = observerRepository;
   }
 
-  async openTheDoor( chatRoomName, type, name ) {
+  async openTheDoor(chatRoomName, type, name) {
     let errors = {};
 
     try {
-      let entity;
-      
+
+      let user = null;
+      let observer = null;
+      let chatRoomIdOut = null;
+
       if (type === "user") {
-        entity = this.userRepository.findByName(name)
-        if (!entity) errors.userName = 'Usuário não encontrado';
+        user = await this.userRepository.findByName(name)
+        if (!user) { errors.userName = 'Usuário não encontrado' };
+        chatRoomIdOut = user.chatRoomId
       }
 
-
       if (type === "observer") {
-        entity = this.observerRepository.findByName(name)
-        if (!entity) errors.observerName = 'Observador não encontrado';
+        observer = await this.observerRepository.findByName(name)
+        if (!observer) {errors.observerName = 'Observador não encontrado'};
+        chatRoomIdOut = observer.chatRoomId
       }
 
       if (Object.keys(errors).length > 0) {
@@ -37,16 +41,26 @@ class ChatRoomDoorService {
       }
 
       if (type === "user") {
-        await this.userRepository.updateChatRoom( name, chatRoom.id )
+        await this.userRepository.updateChatRoom(name, chatRoom.id)
       }
-      
+
       if (type === "observer") {
-        await this.observerRepository.updateChatRoom( name, chatRoom.id )
+        await this.observerRepository.updateChatRoom(name, chatRoom.id)
       }
+
       chatRoom = await this.chatRoomRepository.findByNameWithAssociations(chatRoomName);
-      return chatRoom
+
+      const audience = {
+        chatRoomIdEnter: chatRoom.id,
+        chatRoomIdOut,
+        user,
+        observer,
+      }
+
+      return { chatRoom, audience }
+
     } catch (err) {
-      console.log("err" + JSON.stringify(err));
+      console.log("err            " + JSON.stringify(err));
       throw new UserInputError('Bad input', { errors });
     }
   }

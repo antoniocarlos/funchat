@@ -7,13 +7,14 @@ class MessageRepository {
 
   async create({
     userId,
+    sender,
     content,
     chatRoomId
   }) {
-    console.log(" --------         ")
     try {
       return await Message.create({
         userId,
+        sender,
         content,
         chatRoomId
       });
@@ -39,7 +40,7 @@ class MessageRepository {
   async findAll() {
     const messages = await Messages.findAll();
     const JSONMessages = messages.map(message => this.convertMessage(message));
-    return JSONMessages;
+    return JSONMessages.reverse();
   }
 
   convertMessage(message) {

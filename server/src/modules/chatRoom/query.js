@@ -13,15 +13,22 @@ const listChatRoomService = new ListChatRoomService(chatRoomRepository);
 const chatRoomDoorService = new ChatRoomDoorService(chatRoomRepository, userRepository, observerRepository);
 
 module.exports = {
-  getChatRooms: async () => {
-    return await listChatRoomService.listAll();
-  },
-  getChatRoom: async (_, { chatRoom }, { auth }) => {
-    try {
-      if (!auth) throw new AuthenticationError('Unauthenticated');
-      return await chatRoomDoorService.openTheDoor( chatRoom, auth.type, auth.name);
-    }catch (err) {
-      throw err
+  query: {
+    getChatRooms: async () => {
+      return await listChatRoomService.listAll();
+    },
+    getChatRoom: async (_, { chatRoom: chatRoom_ }, { auth, pubsub }) => {
+      try {
+        if (!auth) throw new AuthenticationError('Unauthenticated');
+
+        const {chatRoom, audience } = await chatRoomDoorService.openTheDoor(chatRoom_, auth.type, auth.name);
+        console.log("err        ffff    " + JSON.stringify(audience));
+        pubsub.publish('UPDATE_AUDIENCE', { updateAudience: audience })
+
+        return chatRoom
+      } catch (err) {
+        throw err
+      }
     }
   }
 }

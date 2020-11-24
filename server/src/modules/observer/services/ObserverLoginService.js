@@ -9,7 +9,7 @@ class ObserverLoginService {
   }
 
   async login(observerName) {
-
+    console.log("WTF")
     let errors = {};
 
     try {

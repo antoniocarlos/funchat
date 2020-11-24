@@ -9,17 +9,19 @@ const observerLoginService = new ObserverLoginService(observerRepository);
 const observerLogoffService = new ObserverLogoffService(observerRepository);
 
 module.exports = {
-  getObservers: async () => {
-    return await listObserversService.listAll();
-  },
-  observerLogin: async (_, args) => {
-    const{observerName} = args;
-    const observer = await observerLoginService.login(observerName);
-    return observer;
-  },
-  observerLogoff: async (_, args) => {
-    const{observerName} = args;
-    const observer = await observerLogoffService.logoff(observerName);
-    return observer;
+  query: {
+    getObservers: async () => {
+      return await listObserversService.listAll();
+    },
+    observerLogin: async (_, args) => {
+      const { observerName } = args;
+      const observer = await observerLoginService.login(observerName);
+      return observer;
+    },
+    observerLogoff: async (_, args) => {
+      const { observerName } = args;
+      const observer = await observerLogoffService.logoff(observerName);
+      return observer;
+    }
   }
 }

@@ -2,26 +2,15 @@ require('dotenv').config();
 const { ApolloServer } = require('apollo-server');
 const { sequelize } = require('../database/models');
 
-const contextMiddleware = require('../../middleware/contextMiddleware')
-
-const schema = require('./graphql/schema');
-
-const server = new ApolloServer({
-  schema,
-  playground: process.env.NODE_ENV === "development",
-  context: contextMiddleware
-});
-
-/** 
-const resolvers = require('./graphql/resolvers');
 const typeDefs = require('./graphql/typeDefs');
+const resolvers = require('./graphql/resolvers');
+const contextMiddleware = require('../../middleware/contextMiddleware')
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: (ctx) => ctx,
+  context: contextMiddleware
 });
-*/
 
 server.listen().then(({ url }) => {
   console.log(`🚀 Server ready at ${url}`);

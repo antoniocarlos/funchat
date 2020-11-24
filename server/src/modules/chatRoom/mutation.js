@@ -5,8 +5,10 @@ const chatRoomRepository = new ChatRoomRepository();
 const createChatRoomService = new CreateChatRoomService(chatRoomRepository);
 
 module.exports = {
-  createChatRoom: async (_, args) => {
-    const chatRoom = await createChatRoomService.create(args);
-    return chatRoom;
+  mutation: {
+    createChatRoom: async (_, args) => {
+      const chatRoom = await createChatRoomService.create(args);
+      return chatRoom;
+    }
   }
 }

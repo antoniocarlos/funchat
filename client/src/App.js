@@ -9,7 +9,7 @@ import './App.scss'
 import Home from './pages/Home'
 import Register from './pages/Register'
 import Chats from './pages/Chats'
-import Chat from './pages/Chat'
+import Chat from './pages/Chat/Chat'
 
 import { AuthProvider } from './context/auth'
 
@@ -26,6 +26,7 @@ function App() {
               <DynamicRoute path="/register" component={Register} unauthenticated/>
               <DynamicRoute path="/Chat/:chatRoom" component={Chat} authenticated/>
               <DynamicRoute path="/Chats" component={Chats} authenticated/>
+              <DynamicRoute path="/Chat" component={Chats} authenticated/>
             </Switch>
           </Container>
         </BrowserRouter>

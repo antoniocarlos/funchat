@@ -1,11 +1,11 @@
-const { AuthenticationError, withFilter } = require('apollo-server')
+const { AuthenticationError } = require('apollo-server')
 
 module.exports = {
   subscription: {
-    newMessage: {
+    updateAudience: {
       subscribe: (_, __, { pubsub, auth }) => {
         if (!auth) throw new AuthenticationError('Unauthenticated')
-        return pubsub.asyncIterator(['NEW_MESSAGE'])
+        return pubsub.asyncIterator(['UPDATE_AUDIENCE'])
       }
     },
   }
