@@ -83,7 +83,7 @@ const CHECKOUT_CHATROOM = gql`
   }
 `
 
-export default function Chat(props ) {
+export default function Chat(props) {
 
   const [id, setId] = useState('');
   const [users, setUsers] = useState([]);
@@ -218,65 +218,67 @@ export default function Chat(props ) {
 
       </Row>
       <Row className='bg-white'>
-        <Col className={'.audience-box'}>
-          <div
-            className={'user-div d-flex justify-content-center justify-content-md-start p-3 bg-white'}
-          >
+        <Col>
+          <div className="audience-box d-flex flex-column p-3 ">
+            <div
+              className={'user-div d-flex justify-content-center justify-content-md-start p-3 bg-white'}
+            >
 
-            <div className="d-none d-md-block ml-2">
-              <p className="text-success">Usuários</p>
-              <p className="font-weight-light">
-                {users.length === 1 ? "Um usuário logado" : ` ${users.length} usuários logados`}
-              </p>
-            </div>
-          </div>
-
-          {users && users.length > 0 ? users.map((user) => (
-            <div key={user.userName} className={'user-div d-flex justify-content-center justify-content-md-start p-3 bg-white'}>
-              <Image
-                src={
-                  user.imageUrl ||
-                  'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'
-                }
-                className="user-image"
-              />
               <div className="d-none d-md-block ml-2">
-                <p className="text-success">{user.userName}</p>
+                <p className="text-success">Usuários</p>
                 <p className="font-weight-light">
-                  {'Logado'}
+                  {users.length === 1 ? "Um usuário logado" : ` ${users.length} usuários logados`}
                 </p>
               </div>
             </div>
-          )) : <div></div>}
 
-          <div
-            className={'user-div d-flex justify-content-center justify-content-md-start p-3 bg-white'}
-          >
+            {users && users.length > 0 ? users.map((user) => (
+              <div key={user.userName} className={'user-div d-flex justify-content-center justify-content-md-start p-3 bg-white'}>
+                <Image
+                  src={
+                    user.imageUrl ||
+                    'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'
+                  }
+                  className="user-image"
+                />
+                <div className="d-none d-md-block ml-2">
+                  <p className="text-success">{user.userName}</p>
+                  <p className="font-weight-light">
+                    {'Logado'}
+                  </p>
+                </div>
+              </div>
+            )) : <div></div>}
 
-            <div className="d-none d-md-block ml-2">
-              <p className="text-success">Expectadores</p>
-              <p className="font-weight-light">
-                {observers.length === 1 ? "Um espectador" : ` ${observers.length} expectadores`}
-              </p>
-            </div>
-          </div>
+            <div
+              className={'user-div d-flex justify-content-center justify-content-md-start p-3 bg-white'}
+            >
 
-          {observers && observers.length > 0 ? observers.map((observer) => (
-            <div key={observer.observerName} className={'user-div d-flex justify-content-center justify-content-md-start p-3 bg-white'}>
-              <Image
-                src={
-                  'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'
-                }
-                className="user-image"
-              />
               <div className="d-none d-md-block ml-2">
-                <p className="text-success">{observer.observerName}</p>
+                <p className="text-success">Expectadores</p>
                 <p className="font-weight-light">
-                  {'Não logado'}
+                  {observers.length === 1 ? "Um espectador" : ` ${observers.length} expectadores`}
                 </p>
               </div>
             </div>
-          )) : <div></div>}
+
+            {observers && observers.length > 0 ? observers.map((observer) => (
+              <div key={observer.observerName} className={'user-div d-flex justify-content-center justify-content-md-start p-3 bg-white'}>
+                <Image
+                  src={
+                    'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'
+                  }
+                  className="user-image"
+                />
+                <div className="d-none d-md-block ml-2">
+                  <p className="text-success">{observer.observerName}</p>
+                  <p className="font-weight-light">
+                    {'Não logado'}
+                  </p>
+                </div>
+              </div>
+            )) : <div></div>}
+          </div>
         </Col>
 
         <Col xs={10} md={8} className="p-0 bg-light">
