@@ -34,8 +34,9 @@ As salas são criadas dinamicamente, basta procurar por uma ou digitar no caminh
 
 O sistema é servido por uma API graphQL baseada em Apollo server
 
-Tipos
+###Types
 
+```javascript
 type User {
   userName: String!
   email: String!
@@ -77,11 +78,13 @@ type Audience {
   user: User
   observer: Observer
 }
+```
 
-Mutations
+###Mutations
 
 Cria um usuário
 
+```javascript
 type Mutation {
   register(
     userName: String!
@@ -92,9 +95,10 @@ type Mutation {
     confirmPassword: String!
   ): User!
 }
-
+```
 Cria uma nova mensagem
 
+```javascript
 type Mutation {
   createMessage(
     sender: String!
@@ -102,87 +106,107 @@ type Mutation {
     chatRoomName: String!
   ): Message!
 }
+```
 
 Cria um novo chatRoom
 
+```javascript
 type Mutation {
   createChatRoom(name: String!): ChatRoom!
 }
-
+```
 Lista os usuários cadastrados
 
+```javascript
 type Query {
   getUsers: [User]
 }
-
+```
 Loga com um usuário cadastrado
 
+```javascript
 type Query {
   login(email: String!, password: String!): User
 }
+```
 
 Lista os observadores
 
+```javascript
 type Query {
   getObservers: [Observer]
 }
+```
 
 Loga com um observador
 
+```javascript
 type Query {
   observerLogin(observerName: String!): Observer
 }
+```
 
 Desloga um observador
 
+```javascript
 type Query {
   observerLogoff(observerName: String!): Observer
 }
+```
 
 Lista todas as mensagens
 
+```javascript
 type Query {
   getMessages: [Message]
 }
-
+```
 
 Lista todos os chatRooms
 
+```javascript
 type Query {
   getChatRooms: [ChatRoom]
 }
+```
 
 Devolve todos os dados presentes em um chatRoom
 
+```javascript
 type Query {
   getChatRoom(chatRoom: String!): ChatRoom
 }
+```
 
 Subscription chamada toda vez que uma nova mensagem é enviada
 
+```javascript
 type Subscription {
   newMessage: Message!
 }
+```
 
 Subscription chamada toda vez que um usuário ou observador muda de chatRoom
 
+```javascript
 type Subscription {
   updateAudience: Audience!
 }
-
+```
 
 ### 🤖 Tecnologias usadas
 
 apollo/client/server
-graphql
-subscriptions-transport-ws
-jest
-react-bootstrap
-node-sass
-bcryptjs
-jsonwebtoken
-mysql2
-sequelize
+
+graphql<br>
+subscriptions-transport-ws<br>
+jest<br>
+react-bootstrap<br>
+node-sass<br>
+bcryptjs<br>
+jsonwebtoken<br>
+mysql2<br>
+sequelize<br>
 
 ### 💻Configurando o projeto
 
@@ -191,15 +215,19 @@ Tanto na pasta client quanto na pasta server execute o yarn.
 Por meio de um docker instancie um servidor mysql:5.7
 
 Configure o sequelize para as variáveis de seu ambiente:
-'src', 'infra', 'database','config', 'database.js'
+src/infra/database/config/database.js
 
 na pasta do servidor execute:
+```javascript
 sequelize db:migrate
-
+```
 Modifique o arquivo .env_example com a chave de segredo para a decodificação dos tokens e mude o seu nome para .env
 
 Dando partida no servidor:
+```javascript
 yarn dev
-
+```
 Iniciando o cliente:
+```javascript
 yarn start
+```
