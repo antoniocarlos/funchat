@@ -2,7 +2,7 @@
 
 Seja bem vindo ao FumChat!
 
-O FunChat é uma aplicação de salas de bate-papo simples e direta ao ponto. Você não precisa se cadastro para ver as conversas nem para criar novas salas. Basta fornecer um apelido de observador.
+O FunChat é uma aplicação de salas de bate-papo simples e direta ao ponto. Você não precisa se cadastrar para ver as conversas nem para criar novas salas. Basta fornecer um apelido de observador.
 
 ![Screenshot](docs/funChat_6.gif)
 
@@ -14,7 +14,6 @@ Por meio de subscriptios o sistema atualiza a lista de participantes assim como 
 
 ![Screenshot](docs/funChat_4.PNG)
 
-
 Os tokens de validação não expiram. Uma vez logado você pode sair e voltar tranquilamente.
 
 ![Screenshot](docs/funChat_1.PNG)
@@ -23,11 +22,11 @@ Os tokens de validação não expiram. Uma vez logado você pode sair e voltar t
 
 ![Screenshot](docs/funChat_3.PNG)
 
-O formulário de login e de registro possuem validação para confirmar o preenchimento dos dados
+O formulário de login e de registro possuem validação para confirmar o preenchimento dos dados.
 
 ![Screenshot](docs/funChat_5.gif)
 
-As salas são criadas dinamicamente, basta procurar por uma ou digitar no caminho “localhost/chat/novasala” para criar uma nova.
+As salas são criadas dinamicamente, basta procurar por uma ou digitar no caminho o nome desejado “localhost/chat/” para criar uma nova.
 
 
 ### 📚 Documentação da API:
@@ -96,7 +95,7 @@ type Mutation {
   ): User!
 }
 ```
-Cria uma nova mensagem
+Cria uma nova mensagem OBS: Rota aoutenticada
 
 ```javascript
 type Mutation {
@@ -146,7 +145,7 @@ type Query {
 }
 ```
 
-Desloga um observador
+Desloga um observador OBS: Rota aoutenticada
 
 ```javascript
 type Query {
@@ -170,7 +169,7 @@ type Query {
 }
 ```
 
-Devolve todos os dados presentes em um chatRoom
+Devolve todos os dados presentes em um chatRoom e entra com o usuário no chatRoom OBS: Rota aoutenticada
 
 ```javascript
 type Query {
@@ -178,7 +177,7 @@ type Query {
 }
 ```
 
-Subscription chamada toda vez que uma nova mensagem é enviada
+Subscription chamada toda vez que uma nova mensagem é enviada OBS: Rota aoutenticada
 
 ```javascript
 type Subscription {
@@ -186,7 +185,7 @@ type Subscription {
 }
 ```
 
-Subscription chamada toda vez que um usuário ou observador muda de chatRoom
+Subscription chamada toda vez que um usuário ou observador muda de chatRoom OBS: Rota aoutenticada
 
 ```javascript
 type Subscription {
@@ -217,7 +216,7 @@ Por meio de um docker instancie um servidor mysql:5.7
 Configure o sequelize para as variáveis de seu ambiente:
 src/infra/database/config/database.js
 
-na pasta do servidor execute:
+Na pasta do servidor execute:
 ```javascript
 sequelize db:migrate
 ```
