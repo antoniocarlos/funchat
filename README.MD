@@ -114,6 +114,17 @@ type Mutation {
   createChatRoom(name: String!): ChatRoom!
 }
 ```
+
+Retira um usuário ou observador de um chatRoom OBS: Rota aoutenticada
+
+```javascript
+type Mutation {
+  checkoutChatRoom(chatRoom: String!): Audience!
+}
+```
+
+###Querys
+
 Lista os usuários cadastrados
 
 ```javascript
@@ -121,7 +132,7 @@ type Query {
   getUsers: [User]
 }
 ```
-Loga com um usuário cadastrado
+Loga com um usuário cadastrado e gera um token
 
 ```javascript
 type Query {
@@ -137,7 +148,7 @@ type Query {
 }
 ```
 
-Loga com um observador
+Loga com um observador e gera um token
 
 ```javascript
 type Query {
