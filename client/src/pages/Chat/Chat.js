@@ -7,6 +7,13 @@ import { gql, useQuery, useMutation, useSubscription } from '@apollo/client';
 import { useAuthState } from '../../context/auth'
 import Message from './Message'
 
+// const GET_OUT_CHATROOM = gql`
+//   query getOutChatRoom($chatRoom: String!) {
+//     getOutChatRoom(chatRoom: $chatRoom){}
+//   }
+// `
+
+
 const GET_CHATROOM = gql`
   query getChatRoom($chatRoom: String!) {
     getChatRoom(chatRoom: $chatRoom){

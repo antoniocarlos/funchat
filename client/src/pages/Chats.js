@@ -40,6 +40,9 @@ export default function Chats({ history }) {
   const logout = () => {
     if (entity.type === "observer") {
       logoffObserver({ variables :{ observerName: entity.name} });
+    } else {
+      dispatch({ type: 'LOGOUT' })
+      history.push('/')
     }
   }
 
