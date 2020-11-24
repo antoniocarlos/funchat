@@ -12,17 +12,18 @@ class MessageRepository {
     chatRoomId
   }) {
     try {
-      return await Message.create({
+      const message = await Message.create({
         userId,
         sender,
         content,
         chatRoomId
       });
+      return this.convertMessage(message);
     } catch (err) {
       console.log("err " + JSON.stringify(err))
     }
 
-    //return this.convertMessage(message);
+    
   }
 
   async findBySender(userId) {

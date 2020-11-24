@@ -17,26 +17,54 @@ class ChatRoomRepository {
   }
 
   async findByName(name) {
-    const chatRoom = await ChatRoom.findOne({ where: { name } });    
+    const chatRoom = await ChatRoom.findOne({ where: { name } });
     return chatRoom ? chatRoom.toJSON() : null;
   }
 
   async findByNameWithAssociations(name) {
-    const chatRoom = await ChatRoom.findOne({ 
-      where: { name },
-      order: [[ 'messages', 'createdAt', 'DESC']],
-      include: [
-        { model: User, as: 'users' },
-        { model: Observer, as: 'observers' },
-        { model: Message, as: 'messages' }
-      ],
-    });
-    
-    return chatRoom ? chatRoom.toJSON() : null;
+    try {
+      const chatRoom = await ChatRoom.findOne({
+        where: { name },
+        order: [['messages', 'createdAt', 'DESC']],
+        include: [
+          { model: User, as: 'users' },
+          { model: Observer, as: 'observers' },
+          { model: Message, as: 'messages' }
+        ],
+      });
+  
+  
+      const messages = chatRoom
+        .toJSON()
+        .messages.map(message => this.convertMessage(message));
+  
+      const convertedChatRoom = {
+        ...chatRoom.toJSON(),
+        messages
+      }
+  
+      return convertedChatRoom;
+    } catch (err) {
+      console.log("err " + JSON.stringify(err))
+    }
   }
 
+  convertMessage(message) {
+    const convertedMessage = {
+      ...message,
+      createdAt: message.createdAt.toISOString(),
+      updatedAt: message.updatedAt.toISOString()
+    }
+
+    return convertedMessage;
+  }
+
+
+
+
+
   async findAllWithAssociations() {
-    const chatRooms = await ChatRoom.findAll({ 
+    const chatRooms = await ChatRoom.findAll({
       include: [
         { model: User, as: 'users' },
         { model: Observer, as: 'observers' },

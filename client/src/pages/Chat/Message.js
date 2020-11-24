@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useMemo } from 'react'
 import moment from 'moment'
-import { Button, OverlayTrigger, Popover, Tooltip } from 'react-bootstrap'
+import { OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { useAuthState } from '../../context/auth'
 import classNames from 'classnames'
 
@@ -9,10 +9,12 @@ export default function Message({ message }) {
 
   const { entity } = useAuthState();
 
-  const sent = entity.name === message.sender
-  const received = !sent
+  const { sent, received } = useMemo(() => {
+    const sent = entity.name === message.sender
+    const received = !sent
 
-  const date = new Date(message.createdAt * 100)
+    return { sent, received }
+  }, [message])
 
   return (
     <div
@@ -22,10 +24,10 @@ export default function Message({ message }) {
       })}
     >
       <OverlayTrigger
-        placement={sent ? 'left' : 'right' }
+        placement={sent ? 'left' : 'right'}
         overlay={
           <Tooltip>
-            {moment(date).format('MMM DD h:mm a')}
+            {`Usuário: ${message.sender} Data: ${moment(message.createdAt).format('MMM DD h:mm a')}`}
           </Tooltip>
         }
         transition={false}
