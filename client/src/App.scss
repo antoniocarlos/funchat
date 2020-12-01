@@ -1,26 +1,40 @@
+$assetPath :"assets/";
+
 $blue: #1877f2;
 $green: #42b72a;
 
 $paragraph-margin-bottom: 0;
 
+$var-color-grey: rgb(126, 126, 126);
+
 $gray-600: rgb(245, 245, 245);
 
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
 
 body {
   min-height: 100vh;
-  background: linear-gradient(
-    203deg,
-    rgba(6, 75, 87, 0.9) 0%,
-    rgba(38, 153, 63, 0.9) 50%,
-    rgba(16, 185, 207, 0.9) 100%
-  );
+  
+  background: url(https://source.unsplash.com/collection/329857/1024x768) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
-.user-div:hover {
-  background-color: rgb(250, 250, 250);
+//Chats
+.chats-card-footer-show {
+  p {
+    margin: auto 0px;
+    color: var-color-grey;
+  }
 }
 
+.card-icons {
+  margin: auto 4px auto 8px;
+  color: var-color-grey;
+}
+
+//Chat
 .messages-box {
   height: 400px;
   overflow-y: scroll;
@@ -32,8 +46,12 @@ body {
   }
 }
 
+.messenger {
+  background: url(#{$assetPath}/bg_messenger.svg) repeat fixed; 
+}
+
 .audience-box {
-  height: 400px;
+  height: 470px;
   overflow-y: scroll;
 
   scrollbar-width: none;
@@ -41,6 +59,10 @@ body {
   &::-webkit-scrollbar {
     display: none;
   }
+}
+
+.audience-info-header {
+  background: var-color-grey;
 }
 
 .user-image {
@@ -54,30 +76,3 @@ body {
   color: rgba(0, 0, 0, 0.5);
 }
 
-.info-text {
-  color: rgba(0, 0, 0, 0.5);
-  text-align: center;
-  margin-bottom: 0.5rem;
-}
-
-.react-button-popover {
-  height: 30px;
-}
-
-.react-icon-button {
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
-  padding-top: 0;
-  padding-bottom: 0;
-  font-size: 1rem;
-  transition: 0.25s;
-
-  &:hover {
-    text-decoration: none;
-    font-size: 1.5rem;
-  }
-}
-
-.btn:focus {
-  box-shadow: none;
-}

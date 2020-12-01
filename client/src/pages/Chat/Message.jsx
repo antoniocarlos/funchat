@@ -33,7 +33,7 @@ export default function Message({ message }) {
         transition={false}
       >
         <div
-          className={classNames('py-2 px-3 rounded-pill position-relative', {
+          className={classNames('py-2 px-3 rounded-pill position-relative shadow', {
             'bg-primary': sent,
             'bg-white': received,
           })}

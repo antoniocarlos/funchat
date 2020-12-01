@@ -1,4 +1,4 @@
-import 'dotenv/config';
+require('dotenv').config();
 
 import { ApolloServer } from 'apollo-server';
 import { sequelize } from '../database/models';

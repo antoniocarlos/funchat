@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { Row, Col, Image, Form, Button } from 'react-bootstrap';
+import { Navbar, Row, Col, Image, Form, Button } from 'react-bootstrap';
 import { useRouteMatch } from 'react-router-dom';
 import { gql, useQuery, useMutation, useSubscription } from '@apollo/client';
 import { useAuthState } from '../../context/auth'
@@ -210,80 +210,18 @@ export default function Chat(props) {
 
   return (
     <Fragment>
-      <Row className="mb-2">
+      <Navbar fixed="top" className="bg-white shadow">
+        <p class="navbar-brand">FunChat</p>
         <Button
           variant="light"
           onClick={handleCheckoutChatRoom}
+          className="ml-auto"
         >Sair da sala</Button>
-
-      </Row>
-      <Row className='bg-white'>
-        <Col>
-          <div className="audience-box d-flex flex-column p-3 ">
-            <div
-              className={'user-div d-flex justify-content-center justify-content-md-start p-3 bg-white'}
-            >
-
-              <div className="d-none d-md-block ml-2">
-                <p className="text-success">Usuários</p>
-                <p className="font-weight-light">
-                  {users.length === 1 ? "Um usuário logado" : ` ${users.length} usuários logados`}
-                </p>
-              </div>
-            </div>
-
-            {users && users.length > 0 ? users.map((user) => (
-              <div key={user.userName} className={'user-div d-flex justify-content-center justify-content-md-start p-3 bg-white'}>
-                <Image
-                  src={
-                    user.imageUrl ||
-                    'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'
-                  }
-                  className="user-image"
-                />
-                <div className="d-none d-md-block ml-2">
-                  <p className="text-success">{user.userName}</p>
-                  <p className="font-weight-light">
-                    {'Logado'}
-                  </p>
-                </div>
-              </div>
-            )) : <div></div>}
-
-            <div
-              className={'user-div d-flex justify-content-center justify-content-md-start p-3 bg-white'}
-            >
-
-              <div className="d-none d-md-block ml-2">
-                <p className="text-success">Expectadores</p>
-                <p className="font-weight-light">
-                  {observers.length === 1 ? "Um espectador" : ` ${observers.length} expectadores`}
-                </p>
-              </div>
-            </div>
-
-            {observers && observers.length > 0 ? observers.map((observer) => (
-              <div key={observer.observerName} className={'user-div d-flex justify-content-center justify-content-md-start p-3 bg-white'}>
-                <Image
-                  src={
-                    'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'
-                  }
-                  className="user-image"
-                />
-                <div className="d-none d-md-block ml-2">
-                  <p className="text-success">{observer.observerName}</p>
-                  <p className="font-weight-light">
-                    {'Não logado'}
-                  </p>
-                </div>
-              </div>
-            )) : <div></div>}
-          </div>
-        </Col>
-
-        <Col xs={10} md={8} className="p-0 bg-light">
+      </Navbar>
 
 
+      <Row className='bg-light shadow rounded mt-5'>
+        <Col xs={12} md={8} className="p-0 messenger rounded">
           <div className="messages-box d-flex flex-column-reverse p-3 ">
 
             {loading ? <p>Loading...</p> : messages.map((message, index) => (
@@ -296,16 +234,15 @@ export default function Chat(props) {
                 )}
               </Fragment>
             ))}
-
           </div>
 
 
-          <div className="px-3 py-2">
+          <div className="px-3 py-2 ">
             <Form onSubmit={submitMessage}>
               <Form.Group className="d-flex align-items-center m-0">
                 <Form.Control
                   type="text"
-                  className="message-input rounded-pill p-4 bg-white border-0"
+                  className="message-input rounded-pill p-4 bg-white border-0 shadow-lg"
                   placeholder={entity.type === "observer" ? "Faça login para mandar mensagens" : "Escreva uma mensagem "}
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
@@ -317,6 +254,65 @@ export default function Chat(props) {
                 ></i>
               </Form.Group>
             </Form>
+          </div>
+        </Col>
+
+        <Col xs={12} md={4} className="p-0 bg-light rounded">
+          <div className="audience-box d-flex flex-column">
+            <div
+              className={'audience-info-header user-div justify-content-start p-3 border-bottom'}
+            >
+              <p className="text-success">Usuários</p>
+              <p className="font-weight-light">
+                {users.length === 1 ? "Um usuário logado" : ` ${users.length} usuários logados`}
+              </p>
+            </div>
+
+            {users && users.length > 0 ? users.map((user) => (
+              <div key={user.userName} className={'d-flex p-3 bg-white border-bottom'}>
+                <Image
+                  src={
+                    user.imageUrl ||
+                    'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'
+                  }
+                  className="user-image"
+                />
+                <div className="ml-3">
+                  <p className="text-success">{user.userName}</p>
+                  <p className="font-weight-light">
+                    {'Logado'}
+                  </p>
+                </div>
+              </div>
+            )) : <div></div>}
+
+            <div
+              className={'audience-info-header justify-content-start p-3 border-bottom'}
+            >
+
+              <p className="text-success">Expectadores</p>
+              <p className="font-weight-light">
+                {observers.length === 1 ? "Um espectador" : ` ${observers.length} expectadores`}
+              </p>
+
+            </div>
+
+            {observers && observers.length > 0 ? observers.map((observer) => (
+              <div key={observer.observerName} className={'d-flex p-3 bg-white border-bottom'}>
+                <Image
+                  src={
+                    'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'
+                  }
+                  className="user-image"
+                />
+                <div className="ml-3">
+                  <p className="text-success">{observer.observerName}</p>
+                  <p className="font-weight-light">
+                    {'Não logado'}
+                  </p>
+                </div>
+              </div>
+            )) : <div></div>}
           </div>
         </Col>
       </Row>
