@@ -66,7 +66,6 @@ const CREATE_MESSAGE = gql`
   }
 `
 
-
 const CHECKOUT_CHATROOM = gql`
   mutation checkoutChatRoom($chatRoom: String!) {
     checkoutChatRoom(chatRoom: $chatRoom){
