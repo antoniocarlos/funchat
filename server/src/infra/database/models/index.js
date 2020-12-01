@@ -1,3 +1,10 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable import/newline-after-import */
+/* eslint-disable no-path-concat */
+/* eslint-disable prefer-template */
+/* eslint-disable no-unused-vars */
+/* eslint-disable lines-around-directive */
+/* eslint-disable strict */
 'use strict';
 
 const fs = require('fs');

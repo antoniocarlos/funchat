@@ -1,6 +1,6 @@
-const { gql } = require('apollo-server')
+import { gql } from 'apollo-server';
 
-module.exports = gql`
+const typeDefs = gql`
   type User {
     userName: String!
     email: String!
@@ -33,14 +33,14 @@ module.exports = gql`
     createdAt: String!
   }
   type Audience {
-    chatRoomIdEnter:String
-    chatRoomIdOut:String
-    user:User
-    observer:Observer
+    chatRoomIdEnter: String
+    chatRoomIdOut: String
+    user: User
+    observer: Observer
   }
   type Query {
     getUsers: [User]
-    login(email: String! password: String!): User
+    login(email: String!, password: String!): User
     getObservers: [Observer]
     observerLogin(observerName: String!): Observer
     observerLogoff(observerName: String!): Observer
@@ -60,14 +60,14 @@ module.exports = gql`
     ): User!
 
     registerObserver(observerName: String!): Observer!
-    
+
     createMessage(
       sender: String!
       content: String!
       chatRoomName: String!
     ): Message!
 
-    createChatRoom(name: String!): ChatRoom!,
+    createChatRoom(name: String!): ChatRoom!
 
     checkoutChatRoom(chatRoom: String!): Audience!
   }
@@ -75,4 +75,6 @@ module.exports = gql`
     newMessage: Message!
     updateAudience: Audience!
   }
-`
+`;
+
+export default typeDefs;

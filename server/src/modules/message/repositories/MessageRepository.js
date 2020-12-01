@@ -1,29 +1,18 @@
 const { Message } = require('../../../infra/database/models');
 
 class MessageRepository {
-  constructor() {
-
-  }
-
-  async create({
-    userId,
-    sender,
-    content,
-    chatRoomId
-  }) {
+  async create({ userId, sender, content, chatRoomId }) {
     try {
       const message = await Message.create({
         userId,
         sender,
         content,
-        chatRoomId
+        chatRoomId,
       });
       return this.convertMessage(message);
     } catch (err) {
-      console.log("err " + JSON.stringify(err))
+      console.log(`err ${JSON.stringify(err)}`);
     }
-
-    
   }
 
   async findBySender(userId) {
@@ -48,12 +37,11 @@ class MessageRepository {
     const convertedMessage = {
       ...message.toJSON(),
       createdAt: message.createdAt.toISOString(),
-      updatedAt: message.updatedAt.toISOString()
-    }
+      updatedAt: message.updatedAt.toISOString(),
+    };
 
     return convertedMessage;
   }
-
 }
 
-module.exports = MessageRepository
+export default MessageRepository;

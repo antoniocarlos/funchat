@@ -1,34 +1,31 @@
-const userQueries = require('../../../modules/user/query');
-const observerQueries = require('../../../modules/observer/query');
-const messageQueries = require('../../../modules/message/query');
-const chatRoomQueries = require('../../../modules/chatRoom/query');
+import userQueries from '../../../modules/user/query';
+import observerQueries from '../../../modules/observer/query';
+import messageQueries from '../../../modules/message/query';
+import chatRoomQueries from '../../../modules/chatRoom/query';
 
-const userMutations = require('../../../modules/user/mutation');
-const observerMutations = require('../../../modules/observer/mutation');
-const messageMutations = require('../../../modules/message/mutation');
-const chatRoomMutations = require('../../../modules/chatRoom/mutation');
+import userMutations from '../../../modules/user/mutation';
+import messageMutations from '../../../modules/message/mutation';
+import chatRoomMutations from '../../../modules/chatRoom/mutation';
 
-const messageSubscriptions = require('../../../modules/message/subscription');
-const audienceSubscriptions = require('../../../modules/audience/subscription');
+import messageSubscriptions from '../../../modules/message/subscription';
+import audienceSubscriptions from '../../../modules/audience/subscription';
 
-module.exports = {
+const resolvers = {
   Query: {
-    ...userQueries.query,
-    ...observerQueries.query,
-    ...messageQueries.query,
-    ...chatRoomQueries.query
+    ...userQueries,
+    ...observerQueries,
+    ...messageQueries,
+    ...chatRoomQueries,
   },
   Mutation: {
-    ...userMutations.mutation,
-    ...observerMutations.mutation,
-    ...messageMutations.mutation,
-    ...chatRoomMutations.mutation
+    ...userMutations,
+    ...messageMutations,
+    ...chatRoomMutations,
   },
   Subscription: {
-    ...messageSubscriptions.subscription,
-    ...audienceSubscriptions.subscription
+    ...messageSubscriptions,
+    ...audienceSubscriptions,
   },
 };
 
-
-
+export default resolvers;

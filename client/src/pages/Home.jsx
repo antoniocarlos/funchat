@@ -1,17 +1,19 @@
-import React, { useState } from 'react'
-import { Row, Col, Form, Button } from 'react-bootstrap'
-import { gql, useLazyQuery } from '@apollo/client'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react';
+import {
+ Row, Col, Form, Button
+} from 'react-bootstrap';
+import { gql, useLazyQuery } from '@apollo/client';
+import { Link } from 'react-router-dom';
 
-import { useAuthDispatch } from '../context/auth'
+import { useAuthDispatch } from '../context/auth';
 
 const LOGIN_OBSERVER = gql`
   query observerLogin($observerName: String!) {
     observerLogin(observerName: $observerName) {
       token
+    }
   }
-}
-`
+`;
 
 const LOGIN_USER = gql`
   query login($email: String!, $password: String!) {
@@ -19,49 +21,49 @@ const LOGIN_USER = gql`
       token
     }
   }
-`
+`;
 
 export default function Home(props) {
-
   const [variables, setVariables] = useState({
     email: '',
     password: '',
     observerName: '',
-  })
+  });
 
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState({});
 
-  const dispatch = useAuthDispatch()
+  const dispatch = useAuthDispatch();
 
-  const [loginObserver, { loading: loadingObserver }] = useLazyQuery(LOGIN_OBSERVER, {
-    onError: (err) => setErrors(err.graphQLErrors[0].extensions.errors),
-    onCompleted(data) {
-      dispatch({ type: 'LOGIN', payload: data.observerLogin })
-      props.history.push('/chats')
+  const [loginObserver, { loading: loadingObserver }] = useLazyQuery(
+    LOGIN_OBSERVER,
+    {
+      onError: err => setErrors(err.graphQLErrors[0].extensions.errors),
+      onCompleted(data) {
+        dispatch({ type: 'LOGIN', payload: data.observerLogin });
+        props.history.push('/chats');
+      },
     },
-  })
+  );
 
   const [loginUser, { loading: loadingUser }] = useLazyQuery(LOGIN_USER, {
-    onError: (err) => setErrors(err.graphQLErrors[0].extensions.errors),
+    onError: err => setErrors(err.graphQLErrors[0].extensions.errors),
     onCompleted(data) {
-      dispatch({ type: 'LOGIN', payload: data.login })
-      props.history.push('/chats')
+      dispatch({ type: 'LOGIN', payload: data.login });
+      props.history.push('/chats');
     },
-  })
+  });
 
+  const submitObserverLoginForm = e => {
+    e.preventDefault();
+    loginObserver({ variables });
+  };
 
-  const submitObserverLoginForm = (e) => {
-    e.preventDefault()
-    loginObserver({ variables })
-  }
-
-  const submitUserLoginForm = (e) => {
-    e.preventDefault()
-    loginUser({ variables })
-  }
+  const submitUserLoginForm = e => {
+    e.preventDefault();
+    loginUser({ variables });
+  };
 
   return (
-
     <Row className="py-5 justify-content-center ">
       <Col sm={8} md={6} lg={6}>
         <Row className="bg-white py-5 justify-content-center mb-3">
@@ -76,13 +78,15 @@ export default function Home(props) {
                   type="text"
                   value={variables.observerName}
                   className={errors.observerName && 'is-invalid'}
-                  onChange={(e) =>
-                    setVariables({ ...variables, observerName: e.target.value })
-                  }
+                  onChange={e => setVariables({ ...variables, observerName: e.target.value })}
                 />
               </Form.Group>
               <div className="text-center">
-                <Button variant="success" type="submit" disabled={loadingObserver}>
+                <Button
+                  variant="success"
+                  type="submit"
+                  disabled={loadingObserver}
+                >
                   {loadingObserver ? 'Carregando..' : 'Entrar'}
                 </Button>
               </div>
@@ -102,9 +106,7 @@ export default function Home(props) {
                   type="text"
                   value={variables.email}
                   className={errors.email && 'is-invalid'}
-                  onChange={(e) =>
-                    setVariables({ ...variables, email: e.target.value })
-                  }
+                  onChange={e => setVariables({ ...variables, email: e.target.value })}
                 />
               </Form.Group>
               <Form.Group>
@@ -115,9 +117,7 @@ export default function Home(props) {
                   type="password"
                   value={variables.password}
                   className={errors.password && 'is-invalid'}
-                  onChange={(e) =>
-                    setVariables({ ...variables, password: e.target.value })
-                  }
+                  onChange={e => setVariables({ ...variables, password: e.target.value })}
                 />
               </Form.Group>
               <div className="text-center">
@@ -134,6 +134,5 @@ export default function Home(props) {
         </Row>
       </Col>
     </Row>
-
-  )
+  );
 }

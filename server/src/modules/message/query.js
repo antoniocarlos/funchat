@@ -1,16 +1,17 @@
-const MessageRepository = require('./repositories/MessageRepository');
-const ListMessageService = require('./services/ListMessageService');
+import MessageRepository from './repositories/MessageRepository';
+import ListMessageService from './services/ListMessageService';
 
 const messageRepository = new MessageRepository();
 const listMessageService = new ListMessageService(messageRepository);
 
-module.exports = {
-  query: {
-    getMessages: async () => {
-      return await listMessageService.listAll();
-    },
-    getMessagesByChatRoom: async (_, args) => {
-      return await listMessageService.listByChatRoom(args);
-    }
-  }
+async function getMessages() {
+  const messages = await listMessageService.listAll();
+  return messages;
 }
+
+async function getMessagesByChatRoom(_, args) {
+  const messages = await listMessageService.listByChatRoom(args);
+  return messages;
+}
+
+export default { getMessages, getMessagesByChatRoom };

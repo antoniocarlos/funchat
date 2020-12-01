@@ -1,3 +1,7 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-unused-vars */
+/* eslint-disable lines-around-directive */
+/* eslint-disable strict */
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {

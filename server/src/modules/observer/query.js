@@ -1,27 +1,28 @@
-const ObserverRepository = require('./repositories/ObserverRepository');
-const ListObserversService = require('./services/ListObserversService');
-const ObserverLoginService = require('./services/ObserverLoginService');
-const ObserverLogoffService = require('./services/ObserverLogoffService');
+import ObserverRepository from './repositories/ObserverRepository';
+import ListObserversService from './services/ListObserversService';
+import ObserverLoginService from './services/ObserverLoginService';
+import ObserverLogoffService from './services/ObserverLogoffService';
 
 const observerRepository = new ObserverRepository();
 const listObserversService = new ListObserversService(observerRepository);
 const observerLoginService = new ObserverLoginService(observerRepository);
 const observerLogoffService = new ObserverLogoffService(observerRepository);
 
-module.exports = {
-  query: {
-    getObservers: async () => {
-      return await listObserversService.listAll();
-    },
-    observerLogin: async (_, args) => {
-      const { observerName } = args;
-      const observer = await observerLoginService.login(observerName);
-      return observer;
-    },
-    observerLogoff: async (_, args) => {
-      const { observerName } = args;
-      const observer = await observerLogoffService.logoff(observerName);
-      return observer;
-    }
-  }
+async function getObservers() {
+  const observers = await listObserversService.listAll();
+  return observers;
 }
+
+async function observerLogin(_, args) {
+  const { observerName } = args;
+  const observer = await observerLoginService.login(observerName);
+  return observer;
+}
+
+async function observerLogoff(_, args) {
+  const { observerName } = args;
+  const observer = await observerLogoffService.logoff(observerName);
+  return observer;
+}
+
+export default { getObservers, observerLogin, observerLogoff };

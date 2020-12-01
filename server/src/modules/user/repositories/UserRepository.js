@@ -1,28 +1,18 @@
-const { User } = require('../../../infra/database/models');
+import { Op } from 'sequelize';
+import { User } from '../../../infra/database/models';
 
 class UserRepository {
-  constructor() {
-
-  }
-
-  async create({
-    userName,
-    email,
-    birthDate,
-    password,
-    imageUrl
-  }) {
+  async create({ userName, email, birthDate, password, imageUrl }) {
     const user = await User.create({
       userName,
       email,
       birthDate,
       password,
-      imageUrl
+      imageUrl,
     });
 
     return this.convertUser(user);
   }
-
 
   async findByName(userName) {
     const user = await User.findOne({ where: { userName } });
@@ -44,25 +34,23 @@ class UserRepository {
 
   async findAllLess(userName) {
     const users = await User.findAll({
-      where: { userName: { [Op.ne]: user.userName } },
+      where: { userName: { [Op.ne]: userName } },
     });
     const JSONUsers = users.map(user => this.convertUser(user));
     return JSONUsers;
   }
 
   async updateChatRoom(userName, chatRoomId) {
-
     await User.update(
       {
-        chatRoomId
+        chatRoomId,
       },
       {
-        where:
-        {
-          userName
-        }
-      })
-
+        where: {
+          userName,
+        },
+      },
+    );
   }
 
   convertUser(user) {
@@ -70,12 +58,11 @@ class UserRepository {
       ...user.toJSON(),
       birthDate: user.birthDate.toISOString(),
       createdAt: user.createdAt.toISOString(),
-      updatedAt: user.updatedAt.toISOString()
-    }
+      updatedAt: user.updatedAt.toISOString(),
+    };
 
     return convertedUser;
   }
-
 }
 
-module.exports = UserRepository
+export default UserRepository;

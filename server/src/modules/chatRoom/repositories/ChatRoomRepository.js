@@ -1,16 +1,16 @@
-const { ChatRoom } = require('../../../infra/database/models');
-const { Message, User, Observer } = require('../../../infra/database/models')
+import {
+  ChatRoom,
+  Message,
+  User,
+  Observer,
+} from '../../../infra/database/models';
 
 class ChatRoomRepository {
-  constructor() {
+  // constructor() {}
 
-  }
-
-  async create({
-    name
-  }) {
+  async create({ name }) {
     const chatRoom = await ChatRoom.create({
-      name
+      name,
     });
 
     return chatRoom.toJSON();
@@ -29,47 +29,43 @@ class ChatRoomRepository {
         include: [
           { model: User, as: 'users' },
           { model: Observer, as: 'observers' },
-          { model: Message, as: 'messages' }
+          { model: Message, as: 'messages' },
         ],
       });
-  
-  
+
       const messages = chatRoom
         .toJSON()
         .messages.map(message => this.convertMessage(message));
-  
+
       const convertedChatRoom = {
         ...chatRoom.toJSON(),
-        messages
-      }
-  
+        messages,
+      };
+
       return convertedChatRoom;
     } catch (err) {
-      console.log("err " + JSON.stringify(err))
+      console.log(`err ${JSON.stringify(err)}`);
     }
+    return null;
   }
 
   convertMessage(message) {
     const convertedMessage = {
       ...message,
       createdAt: message.createdAt.toISOString(),
-      updatedAt: message.updatedAt.toISOString()
-    }
+      updatedAt: message.updatedAt.toISOString(),
+    };
 
     return convertedMessage;
   }
-
-
-
-
 
   async findAllWithAssociations() {
     const chatRooms = await ChatRoom.findAll({
       include: [
         { model: User, as: 'users' },
         { model: Observer, as: 'observers' },
-        { model: Message, as: 'messages' }
-      ]
+        { model: Message, as: 'messages' },
+      ],
     });
     return chatRooms;
   }
@@ -77,11 +73,11 @@ class ChatRoomRepository {
   convert(obj) {
     const convertedObj = {
       createdAt: obj.createdAt.toISOString(),
-      updatedAt: obj.updatedAt.toISOString()
-    }
+      updatedAt: obj.updatedAt.toISOString(),
+    };
 
     return convertedObj;
   }
 }
 
-module.exports = ChatRoomRepository
+export default ChatRoomRepository;

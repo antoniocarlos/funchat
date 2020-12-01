@@ -1,27 +1,27 @@
 class ListMessageService {
-
   constructor(repository) {
     this.messageRepository = repository;
   }
 
-  async listAll () {
+  async listAll() {
     try {
       const messages = await this.messageRepository.findAll();
-      return messages
+      return messages;
     } catch (err) {
       console.log(err);
     }
+    return null;
   }
 
-  async getMessagesByChatRoom ({ chatRoom }) {
+  async getMessagesByChatRoom({ chatRoom }) {
     try {
       const messages = await this.messageRepository.findAllByChatroom(chatRoom);
-      return messages
+      return messages;
     } catch (err) {
       console.log(err);
     }
+    return null;
   }
 }
 
-
-module.exports = ListMessageService;
+export default ListMessageService;

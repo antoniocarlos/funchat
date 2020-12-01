@@ -1,7 +1,7 @@
-import React, { useState, useCallback } from 'react'
-import { Row, Col, Form, Button, Tooltip, OverlayTrigger } from 'react-bootstrap'
-import { gql, useMutation } from '@apollo/client'
-import { Link } from 'react-router-dom'
+import React, { useState, useCallback } from 'react';
+import { Row, Col, Form, Button } from 'react-bootstrap';
+import { gql, useMutation } from '@apollo/client';
+import { Link } from 'react-router-dom';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
 
@@ -29,7 +29,7 @@ const REGISTER_USER = gql`
       updatedAt
     }
   }
-`
+`;
 
 export default function Register(props) {
   const [variables, setVariables] = useState({
@@ -39,34 +39,35 @@ export default function Register(props) {
     imageUrl: '',
     password: '',
     confirmPassword: '',
-  })
-  const [errors, setErrors] = useState({})
-
+  });
+  const [errors, setErrors] = useState({});
 
   // live cycle hooks of the mutation
   const [registerUser, { loading }] = useMutation(REGISTER_USER, {
-    //update(cache, results)
+    // update(cache, results)
     onCompleted: (_, __) => props.history.push('/'),
-    onError: (err) => setErrors(err.graphQLErrors[0].extensions.errors),
-  })
+    onError: err => setErrors(err.graphQLErrors[0].extensions.errors),
+  });
 
-  const submitRegisterForm = (e) => {
-    e.preventDefault()
+  const submitRegisterForm = e => {
+    e.preventDefault();
 
-    registerUser({ variables })
-  }
+    registerUser({ variables });
+  };
 
-  const handleFormSet = useCallback((value) => {
+  const handleFormSet = useCallback(
+    value => {
+      setVariables({ ...variables, ...value }); // ISO String, ex: "2016-11-19T12:00:00.000Z"
+    },
+    [setVariables, variables],
+  );
 
-    setVariables({ ...variables, ...value }) // ISO String, ex: "2016-11-19T12:00:00.000Z"
-
-  }, [setVariables, variables])
-
-  const handleChangeBirthDate = useCallback((day) => {
-
-    setVariables({ ...variables, birthDate: day.toISOString() }) // ISO String, ex: "2016-11-19T12:00:00.000Z"
-
-  }, [setVariables, variables])
+  const handleChangeBirthDate = useCallback(
+    day => {
+      setVariables({ ...variables, birthDate: day.toISOString() });
+    },
+    [setVariables, variables],
+  );
 
   return (
     <Row className="bg-white py-5 justify-content-center">
@@ -75,32 +76,30 @@ export default function Register(props) {
         <Form onSubmit={submitRegisterForm}>
           <Form.Group>
             <Form.Label className={errors.userName && 'text-danger'}>
-              {errors.userName ?? 'Nome de usuário'}
+              {!!errors.userName && 'Nome de usuário'}
             </Form.Label>
             <Form.Control
               type="text"
               value={variables.userName}
               className={errors.userName && 'is-invalid'}
-              onChange={(e) => handleFormSet({ userName: e.target.value })}
-              
+              onChange={e => handleFormSet({ userName: e.target.value })}
             />
           </Form.Group>
           <Form.Group>
             <Form.Label className={errors.email && 'text-danger'}>
-              {errors.email ?? 'Email'}
+              {!!errors.email && 'Email'}
             </Form.Label>
             <Form.Control
               type="email"
               value={variables.email}
               className={errors.email && 'is-invalid'}
-              onChange={(e) => handleFormSet({ email: e.target.value })}
+              onChange={e => handleFormSet({ email: e.target.value })}
             />
           </Form.Group>
           <Form.Group>
             <Form.Label className={errors.birthDate && 'text-danger'}>
-              {errors.birthDate ?? 'Data de nascimento'}
+              {!!errors.birthDate && 'Data de nascimento'}
             </Form.Label>
-
 
             <div className="input-group mb-3 ">
               <div className="input-group-prepend">
@@ -111,41 +110,39 @@ export default function Register(props) {
                 onDayChange={day => handleChangeBirthDate(day)}
               />
             </div>
-
           </Form.Group>
           <Form.Group>
             <Form.Label className={errors.imageUrl && 'text-danger'}>
-              {errors.imageUrl ?? 'Url do avatar'}
+              {!!errors.imageUrl && 'Url do avatar'}
             </Form.Label>
             <Form.Control
               type="text"
               value={variables.imageUrl}
               className={errors.imageUrl && 'is-invalid'}
-              onChange={(e) => handleFormSet({ imageUrl: e.target.value })}
+              onChange={e => handleFormSet({ imageUrl: e.target.value })}
             />
           </Form.Group>
           <Form.Group>
             <Form.Label className={errors.password && 'text-danger'}>
-              {errors.password ?? 'Senha'}
+              {!!errors.password && 'Senha'}
             </Form.Label>
             <Form.Control
               type="password"
               value={variables.password}
               className={errors.password && 'is-invalid'}
-              onChange={(e) => handleFormSet({ password: e.target.value })}
+              onChange={e => handleFormSet({ password: e.target.value })}
             />
           </Form.Group>
           <Form.Group>
             <Form.Label className={errors.confirmPassword && 'text-danger'}>
-              {errors.confirmPassword ?? 'Confirme a senha'}
+              {!!errors.confirmPassword && 'Confirme a senha'}
             </Form.Label>
             <Form.Control
               type="password"
               value={variables.confirmPassword}
               className={errors.confirmPassword && 'is-invalid'}
-              onChange={(e) => handleFormSet({ confirmPassword: e.target.value })}
-
-              onChange={(e) =>
+              onChange={e => handleFormSet({ confirmPassword: e.target.value })}
+              onChange={e =>
                 setVariables({
                   ...variables,
                   confirmPassword: e.target.value,
@@ -165,5 +162,5 @@ export default function Register(props) {
         </Form>
       </Col>
     </Row>
-  )
+  );
 }

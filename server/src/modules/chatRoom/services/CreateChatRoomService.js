@@ -1,49 +1,45 @@
-const { UserInputError } = require('apollo-server');
+import { UserInputError } from 'apollo-server';
 
 class CreateChatRoomService {
-
   constructor(chatRoomRepository) {
     this.chatRoomRepository = chatRoomRepository;
   }
 
-  async create({
-    name
-  }) {
-    let errors = {};
+  async create({ name }) {
+    const errors = {};
 
     try {
       // Validate input data
       if (name.trim() === '') {
-        errors.chatRoomName = 'O nome da sala deve ser preenchido'
+        errors.chatRoomName = 'O nome da sala deve ser preenchido';
       }
 
       if (Object.keys(errors).length > 0) {
-        throw errors
+        throw errors;
       }
 
       // Check if chatRoom exists
-      const CheckChatRoomByName = await this.chatRoomRepository.findByName(name);
-      if (CheckChatRoomByName) errors.chatRoomName = 'Esse nome de chat room já existe';
+      const CheckChatRoomByName = await this.chatRoomRepository.findByName(
+        name,
+      );
+      if (CheckChatRoomByName)
+        errors.chatRoomName = 'Esse nome de chat room já existe';
 
       if (Object.keys(errors).length > 0) {
-        throw errors
+        throw errors;
       }
 
       // Creates a chatRoom on database
       const chatRoom = await this.chatRoomRepository.create({
-        name
+        name,
       });
 
       return chatRoom;
-
     } catch (err) {
-      console.log("err " + JSON.stringify(err));
+      console.log(`err ${JSON.stringify(err)}`);
       throw new UserInputError('Bad input', { errors });
     }
   }
-
 }
 
-
-
-module.exports = CreateChatRoomService;
+export default CreateChatRoomService;

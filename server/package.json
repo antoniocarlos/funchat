@@ -11,17 +11,30 @@
     "graphql-iso-date": "^3.6.1",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.2.5",
+    "reflect-metadata": "^0.1.13",
     "sequelize": "^6.3.5",
-    "tsyringe": "^4.4.0",
+    "typedi": "^0.8.0",
     "yup": "^0.29.3"
   },
   "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/node": "^7.12.6",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-proposal-decorators": "^7.12.1",
+    "@babel/preset-env": "^7.12.7",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "eslint": "6.8.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-prettier": "^3.1.4",
     "jest": "^26.6.3",
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.6",
+    "prettier": "^2.2.0"
   },
   "scripts": {
-    "dev": "nodemon src/infra/http/server.js",
-    "start": "node server.js",
+    "dev": "nodemon --exec babel-node src/infra/http/server.js",
+    "start": "",
     "test": "jest --setupFiles dotenv/config",
     "clear_jest": "jest --clearCache"
   },
