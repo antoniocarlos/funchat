@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from 'react';
 import { BsFillPersonFill, BsEyeFill, BsFillEnvelopeFill } from 'react-icons/bs';
 import { Navbar, Row, Col, Form, Button, Card } from 'react-bootstrap';
-import { gql, useQuery, useLazyQuery } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 
-import { useAuthDispatch, useAuthState } from '../context/auth';
+import { useAuth } from '../hooks/auth';
 
 const GET_CHATROOMS = gql`
   query getChatRooms {
@@ -23,39 +23,14 @@ const GET_CHATROOMS = gql`
   }
 `;
 
-const LOGOFF_OBSERVER = gql`
-  query observerLogoff($observerName: String!) {
-    observerLogoff(observerName: $observerName) {
-      observerName
-    }
-  }
-`;
-
 export default function Chats({ history }) {
   const [searchField, setSearchField] = useState('');
-  const dispatch = useAuthDispatch();
 
-  const { entity } = useAuthState();
-
-
-
-  const [logoffObserver] = useLazyQuery(LOGOFF_OBSERVER, {
-    onError: (err) => console.log(`err ${JSON.stringify(err)}`),
-    onCompleted(data) {
-      console.log('Deslogado!');
-      dispatch({ type: 'LOGOUT' });
-      history.push('/');
-    },
-  });
+  const { logoff } = useAuth();
 
   const logout = () => {
-    console.log('Deslogado!');
-    if (entity.type === 'observer') {
-      logoffObserver({ variables: { observerName: entity.name } });
-    } else {
-      dispatch({ type: 'LOGOUT' });
-      history.push('/');
-    }
+    logoff();
+    history.push('/');
   };
 
   const handleEnterChatRoom = useCallback((e) => {
@@ -75,7 +50,7 @@ export default function Chats({ history }) {
       <Navbar fixed="top" className="bg-white shadow">
         <p class="navbar-brand">FunChat</p>
         <Button
-        className="ml-auto"
+          className="ml-auto"
           variant="light"
           onClick={logout}
         >

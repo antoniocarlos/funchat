@@ -1,10 +1,10 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 
-import { useAuthState } from '../context/auth'
+import { useAuth } from '../hooks/auth'
 
 export default function DynamicRoute(props) {
-  const { entity } = useAuthState()
+  const { entity } = useAuth()
 
   if (props.authenticated && !entity) {
     return <Redirect to="/" />

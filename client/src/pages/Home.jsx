@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect, useCallback } from 'react';
 import {
   Navbar,
   Row,
@@ -6,26 +6,9 @@ import {
   Form,
   Button
 } from 'react-bootstrap';
-import { gql, useLazyQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
 
-import { useAuthDispatch } from '../context/auth';
-
-const LOGIN_OBSERVER = gql`
-  query observerLogin($observerName: String!) {
-    observerLogin(observerName: $observerName) {
-      token
-    }
-  }
-`;
-
-const LOGIN_USER = gql`
-  query login($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
-      token
-    }
-  }
-`;
+import { useAuth } from '../hooks/auth';
 
 export default function Home(props) {
   const [variables, setVariables] = useState({
@@ -34,39 +17,29 @@ export default function Home(props) {
     observerName: '',
   });
 
-  const [errors, setErrors] = useState({});
+  const {
+    entity,
+    errors,
+    loginObserver,
+    loadingObserver,
+    loginUser,
+    loadingUser
+  } = useAuth();
 
-  const dispatch = useAuthDispatch();
+  useEffect(() => {
+    if(entity) props.history.push('/chats');
+  }, [entity])
 
-  const [loginObserver, { loading: loadingObserver }] = useLazyQuery(
-    LOGIN_OBSERVER,
-    {
-      onError: err => setErrors(err.graphQLErrors[0].extensions.errors),
-      onCompleted(data) {
-        dispatch({ type: 'LOGIN', payload: data.observerLogin });
-        props.history.push('/chats');
-      },
-    },
-  );
-
-  const [loginUser, { loading: loadingUser }] = useLazyQuery(LOGIN_USER, {
-    onError: err => setErrors(err.graphQLErrors[0].extensions.errors),
-    onCompleted(data) {
-      dispatch({ type: 'LOGIN', payload: data.login });
-      props.history.push('/chats');
-    },
-  });
-
-  const submitObserverLoginForm = e => {
+  const submitObserverLoginForm = useCallback((e) => {
     e.preventDefault();
     loginObserver({ variables });
-  };
+  }, [loginObserver, variables]);
 
-  const submitUserLoginForm = e => {
+  const submitUserLoginForm = useCallback((e) => {
     e.preventDefault();
     loginUser({ variables });
-  };
-
+  }, [loginUser, variables]);
+  
   return (
     <Fragment>
       <Navbar fixed="top" className="bg-white shadow">

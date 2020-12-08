@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { Navbar, Row, Col, Image, Form, Button } from 'react-bootstrap';
 import { useRouteMatch } from 'react-router-dom';
 import { gql, useQuery, useMutation, useSubscription } from '@apollo/client';
-import { useAuthState } from '../../context/auth'
+import { useAuth } from '../../hooks/auth'
 import Message from './Message'
 
 const GET_CHATROOM = gql`
@@ -90,7 +90,7 @@ export default function Chat(props) {
   const [messages, setMessages] = useState([]);
   const [content, setContent] = useState('')
 
-  const { entity } = useAuthState();
+  const { entity } = useAuth();
   const { params } = useRouteMatch();
 
   const chatRoomName = params.chatRoom;

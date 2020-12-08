@@ -11,14 +11,14 @@ import Register from './pages/Register'
 import Chats from './pages/Chats'
 import Chat from './pages/Chat/Chat'
 
-import { AuthProvider } from './context/auth'
+import Hooks from './hooks'
 
 import DynamicRoute from './util/DynamicRoute'
 
 function App() {
   return (
     <ApolloProvider>
-      <AuthProvider>
+      <Hooks>
         <BrowserRouter>
           <Container className="pt-5">
             <Switch>
@@ -30,7 +30,7 @@ function App() {
             </Switch>
           </Container>
         </BrowserRouter>
-      </AuthProvider>
+      </Hooks>
     </ApolloProvider>
   )
 }

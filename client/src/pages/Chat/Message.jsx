@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react'
 import moment from 'moment'
 import { OverlayTrigger, Tooltip } from 'react-bootstrap'
-import { useAuthState } from '../../context/auth'
+import { useAuth } from '../../hooks/auth'
 import classNames from 'classnames'
 
 
 export default function Message({ message }) {
 
-  const { entity } = useAuthState();
+  const { entity } = useAuth();
 
   const { sent, received } = useMemo(() => {
     const sent = entity.name === message.sender
