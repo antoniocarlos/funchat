@@ -25,3 +25,21 @@ export const LOGIN_USER = gql`
   }
 `;
 
+//Chatroom schemas
+export const GET_CHATROOMS = gql`
+  query getChatRooms {
+    getChatRooms {
+      name
+      messages{
+        content
+        sender
+      }
+      users{
+        userName
+      }
+      observers{
+        observerName
+      }
+    }
+  }
+`;

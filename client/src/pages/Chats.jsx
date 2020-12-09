@@ -1,32 +1,19 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { BsFillPersonFill, BsEyeFill, BsFillEnvelopeFill } from 'react-icons/bs';
 import { Navbar, Row, Col, Form, Button, Card } from 'react-bootstrap';
-import { gql, useQuery } from '@apollo/client';
 
 import { useAuth } from '../hooks/auth';
-
-const GET_CHATROOMS = gql`
-  query getChatRooms {
-    getChatRooms {
-      name
-      messages{
-        content
-        sender
-      }
-      users{
-        userName
-      }
-      observers{
-        observerName
-      }
-    }
-  }
-`;
+import { useChatRoom } from '../hooks/chatRoom';
 
 export default function Chats({ history }) {
   const [searchField, setSearchField] = useState('');
 
   const { logoff } = useAuth();
+  const { chatRooms, getChatRooms} = useChatRoom();
+
+  useEffect(() => {
+    getChatRooms;
+  }, [getChatRooms])
 
   const logout = () => {
     logoff();
@@ -36,8 +23,6 @@ export default function Chats({ history }) {
   const handleEnterChatRoom = useCallback((e) => {
     history.push(`/chat/${e}`);
   }, []);
-
-  const { data } = useQuery(GET_CHATROOMS);
 
   const submitSearchField = (e) => {
     e.preventDefault();
@@ -83,8 +68,8 @@ export default function Chats({ history }) {
       <Row className="justify-content-center mb-2">
         <Col sm={10} md={8} lg={8}>
 
-          {data &&
-            data.getChatRooms.map(chatRoom => (
+          {chatRooms &&
+            chatRooms.map(chatRoom => (
               <Card
                 className="text-grey mb-2 shadow" key={chatRoom.name}
               >
