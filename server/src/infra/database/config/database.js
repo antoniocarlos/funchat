@@ -3,7 +3,7 @@ module.exports = {
     username: 'root',
     password: 'root',
     database: 'funchat',
-    host: '192.168.99.100',
+    host: 'localhost',
     dialect: 'mysql',
   },
   test: {
