@@ -13,6 +13,7 @@
     "mysql2": "^2.2.5",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.3.5",
+    "sequelize-cli": "6.5.1",
     "typedi": "^0.8.0",
     "yup": "^0.29.3"
   },
