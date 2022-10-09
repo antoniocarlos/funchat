@@ -76,7 +76,7 @@ export default function Register(props) {
         <Form onSubmit={submitRegisterForm}>
           <Form.Group>
             <Form.Label className={errors.userName && 'text-danger'}>
-              {!!errors.userName && 'Nome de usuário'}
+              {!!errors.userName || 'Nome de usuário'}
             </Form.Label>
             <Form.Control
               type="text"
@@ -87,7 +87,7 @@ export default function Register(props) {
           </Form.Group>
           <Form.Group>
             <Form.Label className={errors.email && 'text-danger'}>
-              {!!errors.email && 'Email'}
+              {!!errors.email || 'Email'}
             </Form.Label>
             <Form.Control
               type="email"
@@ -98,7 +98,7 @@ export default function Register(props) {
           </Form.Group>
           <Form.Group>
             <Form.Label className={errors.birthDate && 'text-danger'}>
-              {!!errors.birthDate && 'Data de nascimento'}
+              {!!errors.birthDate || 'Data de nascimento'}
             </Form.Label>
 
             <div className="input-group mb-3 ">
@@ -113,7 +113,7 @@ export default function Register(props) {
           </Form.Group>
           <Form.Group>
             <Form.Label className={errors.imageUrl && 'text-danger'}>
-              {!!errors.imageUrl && 'Url do avatar'}
+              {!!errors.imageUrl || 'Url do avatar'}
             </Form.Label>
             <Form.Control
               type="text"
@@ -124,7 +124,7 @@ export default function Register(props) {
           </Form.Group>
           <Form.Group>
             <Form.Label className={errors.password && 'text-danger'}>
-              {!!errors.password && 'Senha'}
+              {!!errors.password || 'Senha'}
             </Form.Label>
             <Form.Control
               type="password"
@@ -135,19 +135,19 @@ export default function Register(props) {
           </Form.Group>
           <Form.Group>
             <Form.Label className={errors.confirmPassword && 'text-danger'}>
-              {!!errors.confirmPassword && 'Confirme a senha'}
+              {!!errors.confirmPassword || 'Confirme a senha'}
             </Form.Label>
             <Form.Control
               type="password"
               value={variables.confirmPassword}
               className={errors.confirmPassword && 'is-invalid'}
-              onChange={e => handleFormSet({ confirmPassword: e.target.value })}
-              onChange={e =>
+              onChange={e => {
+                handleFormSet({ confirmPassword: e.target.value });
                 setVariables({
                   ...variables,
                   confirmPassword: e.target.value,
                 })
-              }
+              }}
             />
           </Form.Group>
           <div className="text-center">
