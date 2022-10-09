@@ -32,7 +32,7 @@ const AuthProvider = ({ children }) => {
   const [loginUser, { loading: loadingUser }] = useLazyQuery(LOGIN_USER, {
     onError: err => setErrors(err.graphQLErrors[0].extensions.errors),
     onCompleted(data) {
-      const token = data.userLogin.payload.token;
+      const token = data.login.token;
       localStorage.setItem('@FunChat:token', token);
       setEntity(jwtDecode(token));
     },
