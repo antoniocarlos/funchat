@@ -3,6 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "ISC",
+  "scripts": {
+    "dev": "nodemon --exec babel-node src/infra/http/server.js",
+    "seed": "sequelize-cli db:seed:all",
+    "start": "",
+    "test": "jest --setupFiles dotenv/config",
+    "clear_jest": "jest --clearCache"
+  },
   "dependencies": {
     "apollo-server": "^2.19.0",
     "bcryptjs": "^2.4.3",
@@ -32,12 +39,6 @@
     "jest": "^26.6.3",
     "nodemon": "^2.0.6",
     "prettier": "^2.2.0"
-  },
-  "scripts": {
-    "dev": "nodemon --exec babel-node src/infra/http/server.js",
-    "start": "",
-    "test": "jest --setupFiles dotenv/config",
-    "clear_jest": "jest --clearCache"
   },
   "keyWords": [],
   "author": "AntonioThiele"
