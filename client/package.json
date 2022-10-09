@@ -12,11 +12,11 @@
     "graphql": "^15.4.0",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.1",
-    "node-sass": "4.14.1",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",
     "react-day-picker": "^7.4.8",
     "react-dom": "^17.0.1",
+    "react-icons": "^4.4.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
     "subscriptions-transport-ws": "^0.9.18",
@@ -39,5 +39,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "sass": "^1.55.0"
   }
 }
