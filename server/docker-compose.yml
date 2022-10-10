@@ -1,0 +1,38 @@
+version: '3.4'
+
+networks:
+  fun_chat_network:
+
+services:
+  fun-chat-api:
+    build:
+      context: .
+      target: development
+    volumes:
+      - ./src:/fun-chat-api/src
+    ports:
+      - 4000:4000
+    networks:
+      - fun_chat_network
+    env_file:
+      - .env
+    environment:
+      - MYSQL_HOSTS=mysgl:3306
+      - MYSQL_DATABASE=funchat
+      - MYSQL_USER=
+      - MYSQL_PASSWORD=
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    restart: always
+    volumes:
+      - ./db/dump:/var/dump
+    ports:
+      - 3306:3306
+    expose:
+      - '3306'
+    networks:
+      - fun_chat_network
