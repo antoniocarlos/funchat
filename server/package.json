@@ -5,6 +5,7 @@
   "license": "ISC",
   "scripts": {
     "dev": "nodemon --exec babel-node src/infra/http/server.js",
+    "migrate": "sequelize db:migrate",
     "seed": "sequelize-cli db:seed:all",
     "start": "",
     "test": "jest --setupFiles dotenv/config",
