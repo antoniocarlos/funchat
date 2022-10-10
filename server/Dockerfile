@@ -26,4 +26,6 @@ FROM base as development
 
 CMD npm run dev
 
+CMD npm run migrate
+
 CMD npm rum seed
