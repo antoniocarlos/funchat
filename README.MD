@@ -28,6 +28,67 @@ O formulário de login e de registro possuem validação para confirmar o preenc
 
 As salas são criadas dinamicamente, basta procurar por uma ou digitar no caminho o nome desejado “localhost/chat/” para criar uma nova.
 
+### 💻Configurando o projeto
+
+## API - Com Docker
+Clone o projeto
+```
+git clone https://github.com/antoniocarlos/funchat.git
+```
+
+Acesse a pasta server
+```
+cd server
+```
+
+Copie e renomeando o arquivo de variáveis de ambiente
+```
+cp .env_example .env
+```
+
+Executando o docker-compose
+```
+docker-compose up --build
+```
+
+Executando as migrations
+```
+docker exec -it server_fun-chat-api_1 sh -c "npm run migrate"
+```
+
+Executando o seed
+```
+docker exec -it server_fun-chat-api_1 sh -c "npm run seed"
+```
+
+## Cliente - com Yarn
+
+Exige Node 16.13 ou maior
+
+Na pasta do cliente
+```
+yarn
+```
+
+Rodando o cliente
+```
+yarn start
+```
+
+### 🤖 Tecnologias usadas
+
+apollo/client/server
+
+graphql<br>
+subscriptions-transport-ws<br>
+jest<br>
+react-bootstrap<br>
+node-sass<br>
+bcryptjs<br>
+jsonwebtoken<br>
+mysql2<br>
+sequelize<br>
+
 
 ### 📚 Documentação da API:
 
@@ -202,42 +263,4 @@ Subscription chamada toda vez que um usuário ou observador muda de chatRoom OBS
 type Subscription {
   updateAudience: Audience!
 }
-```
-
-### 🤖 Tecnologias usadas
-
-apollo/client/server
-
-graphql<br>
-subscriptions-transport-ws<br>
-jest<br>
-react-bootstrap<br>
-node-sass<br>
-bcryptjs<br>
-jsonwebtoken<br>
-mysql2<br>
-sequelize<br>
-
-### 💻Configurando o projeto
-
-Tanto na pasta client quanto na pasta server execute o yarn.
-
-Por meio de um docker instancie um servidor mysql:5.7
-
-Configure o sequelize para as variáveis de seu ambiente:
-src/infra/database/config/database.js
-
-Na pasta do servidor execute:
-```javascript
-sequelize db:migrate
-```
-Modifique o arquivo .env_example com a chave de segredo para a decodificação dos tokens e mude o seu nome para .env
-
-Dando partida no servidor:
-```javascript
-yarn dev
-```
-Iniciando o cliente:
-```javascript
-yarn start
 ```
