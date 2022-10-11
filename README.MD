@@ -1,4 +1,4 @@
-## 🔥 FunChat
+# 🔥 FunChat
 
 Seja bem vindo ao FumChat!
 
@@ -28,9 +28,9 @@ O formulário de login e de registro possuem validação para confirmar o preenc
 
 As salas são criadas dinamicamente, basta procurar por uma ou digitar no caminho o nome desejado “localhost/chat/” para criar uma nova.
 
-### 💻Configurando o projeto
+## 💻 Configurando o projeto
 
-## API - Com Docker
+### API - Com Docker
 Clone o projeto
 ```
 git clone https://github.com/antoniocarlos/funchat.git
@@ -61,7 +61,7 @@ Executando o seed
 docker exec -it server_fun-chat-api_1 sh -c "npm run seed"
 ```
 
-## Cliente - com Yarn
+### Cliente - com Yarn
 
 Exige Node 16.13 ou maior
 
@@ -75,7 +75,7 @@ Rodando o cliente
 yarn start
 ```
 
-### 🤖 Tecnologias usadas
+## 🤖 Tecnologias usadas
 
 apollo/client/server
 
@@ -90,7 +90,7 @@ mysql2<br>
 sequelize<br>
 
 
-### 📚 Documentação da API:
+## 📚 Documentação da API:
 
 O sistema é servido por uma API graphQL baseada em Apollo server
 
