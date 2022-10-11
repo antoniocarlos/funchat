@@ -140,10 +140,9 @@ export default function Chat(props) {
   //UpdateMessages
   const { data: updatedMessageData, error: updatedMessageError } = useSubscription(
     NEW_MESSAGE
-  )
+  );
 
   useEffect(() => {
-
     if (updatedMessageError) {
       console.log("Erro ao receber mensagens")
     }
@@ -153,7 +152,7 @@ export default function Chat(props) {
         setMessages([message, ...messages])
       }
     }
-  }, [updatedMessageData, updatedMessageError, setMessages, id]);
+  }, [updatedMessageData, updatedMessageError]);
 
 
   //UpdateMessages
@@ -210,7 +209,7 @@ export default function Chat(props) {
   return (
     <Fragment>
       <Navbar fixed="top" className="bg-white shadow">
-        <p class="navbar-brand">FunChat</p>
+        <p className="navbar-brand">FunChat</p>
         <Button
           variant="light"
           onClick={handleCheckoutChatRoom}

@@ -12,8 +12,8 @@ export default function Chats({ history }) {
   const { chatRooms, getChatRooms} = useChatRoom();
 
   useEffect(() => {
-    getChatRooms;
-  }, [getChatRooms])
+    getChatRooms();
+  }, []);
 
   const logout = () => {
     logoff();
@@ -33,7 +33,7 @@ export default function Chats({ history }) {
     <>
 
       <Navbar fixed="top" className="bg-white shadow">
-        <p class="navbar-brand">FunChat</p>
+        <p className="navbar-brand">FunChat</p>
         <Button
           className="ml-auto"
           variant="light"

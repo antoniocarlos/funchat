@@ -43,7 +43,7 @@ export default function Home(props) {
   return (
     <Fragment>
       <Navbar fixed="top" className="bg-white shadow">
-        <p class="navbar-brand">FunChat</p>
+        <p className="navbar-brand">FunChat</p>
       </Navbar>
 
       <Row className="py-5 justify-content-center">
