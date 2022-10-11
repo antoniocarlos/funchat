@@ -11,13 +11,11 @@ const ChatRoomProvider = ({ children }) => {
     GET_CHATROOMS, {
     onCompleted: (data) => {
       setChatRooms(data.getChatRooms);
-    }
+      console.log('foi 2 ###');
+    },
+    fetchPolicy: 'network-only',
   }
   );
-
-  useEffect(() => {
-    getChatRooms();
-  }, [])
 
   return (
     <ChatRoomContext.Provider value={{

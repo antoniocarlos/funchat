@@ -26,6 +26,7 @@ const AuthProvider = ({ children }) => {
         localStorage.setItem('@FunChat:token', token);
         setEntity(jwtDecode(token));
       },
+      fetchPolicy: 'network-only',
     },
   );
 

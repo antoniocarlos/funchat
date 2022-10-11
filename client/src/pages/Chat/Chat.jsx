@@ -97,6 +97,7 @@ export default function Chat(props) {
 
   const { loading, error, data } = useQuery(GET_CHATROOM, {
     variables: { chatRoom: chatRoomName },
+    fetchPolicy: 'network-only',
   });
 
   const [sendMessage] = useMutation(CREATE_MESSAGE, {
