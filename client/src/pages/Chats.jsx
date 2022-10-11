@@ -12,7 +12,6 @@ export default function Chats({ history }) {
   const { chatRooms, getChatRooms} = useChatRoom();
 
   useEffect(() => {
-    console.log('foi ###');
     getChatRooms();
   },[]);
 
