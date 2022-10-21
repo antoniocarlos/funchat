@@ -62,6 +62,7 @@
     "subscriptions-transport-ws": "^0.9.18",
     "tailwindcss": "^3.0.2",
     "terser-webpack-plugin": "^5.2.5",
+    "ts-loader": "^9.4.1",
     "web-vitals": "^0.2.4",
     "webpack": "^5.64.4",
     "webpack-dev-server": "^4.6.0",
