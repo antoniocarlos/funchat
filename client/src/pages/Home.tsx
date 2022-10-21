@@ -6,11 +6,17 @@ import {
   Form,
   Button
 } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { History } from 'history';
+
+import { Link, RouteComponentProps } from 'react-router-dom';
 
 import { useAuth } from '../hooks/auth';
 
-export default function Home(props) {
+interface ChildComponentProps {
+    history : History
+}
+
+const Home: React.FC<ChildComponentProps> = ({ history }) => {
   const [variables, setVariables] = useState({
     email: '',
     password: '',
@@ -27,15 +33,15 @@ export default function Home(props) {
   } = useAuth();
 
   useEffect(() => {
-    if(entity) props.history.push('/chats');
+    if(entity) history.push('/chats');
   }, [entity])
 
-  const submitObserverLoginForm = useCallback((e) => {
+  const submitObserverLoginForm = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     loginObserver({ variables });
   }, [loginObserver, variables]);
 
-  const submitUserLoginForm = useCallback((e) => {
+  const submitUserLoginForm = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     loginUser({ variables });
   }, [loginUser, variables]);
@@ -119,3 +125,5 @@ export default function Home(props) {
     </Fragment>
   );
 }
+
+export default Home
