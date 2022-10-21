@@ -1,6 +1,5 @@
 import { gql } from '@apollo/client';
 
-//Auth schemas
 export const LOGOFF_OBSERVER = gql`
   query observerLogoff($observerName: String!) {
     observerLogoff(observerName: $observerName) {
@@ -25,7 +24,6 @@ export const LOGIN_USER = gql`
   }
 `;
 
-//Chatroom schemas
 export const GET_CHATROOMS = gql`
   query getChatRooms {
     getChatRooms {

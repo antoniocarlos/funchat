@@ -137,8 +137,6 @@ export default function Chat(props) {
     sendMessage({ variables: { sender: entity.name, content, chatRoomName } })
   }
 
-
-  //UpdateMessages
   const { data: updatedMessageData, error: updatedMessageError } = useSubscription(
     NEW_MESSAGE
   );
@@ -155,8 +153,6 @@ export default function Chat(props) {
     }
   }, [updatedMessageData, updatedMessageError]);
 
-
-  //UpdateMessages
   const { data: updatedAudienceData, error: updatedAudienceError } = useSubscription(
     UPDATE_AUDIENCE
   )
@@ -174,7 +170,6 @@ export default function Chat(props) {
       const chatRoomIdEnter = updatedAudienceData.updateAudience.chatRoomIdEnter
       const chatRoomIdOut = updatedAudienceData.updateAudience.chatRoomIdOut
 
-      //verifica se é ele mesmo
       if (observer) {
         if (entity.type === "observer" && entity.name === observer.observerName) return
       }
@@ -183,21 +178,16 @@ export default function Chat(props) {
         if (entity.type === "user" && entity.name === user.userName) return
       }
 
-      //Recarregamento de página?
       if (chatRoomIdEnter === chatRoomIdOut) return
 
-      //A modificação deve ser feita nessa sala?
       if (chatRoomIdEnter !== id && chatRoomIdOut !== id) return
 
-
-      // Entrada
       if (chatRoomIdEnter === id) {
         if (user) setUsers((old) => [user, ...old])
         if (observer) setObservers((old) => [observer, ...old])
 
       }
 
-      //Saida
       if (chatRoomIdOut === id) {
         if (user) setUsers((old) => [...old.filter(user_ => user_.userName !== user.userName)])
         if (observer) setObservers((old) => [...old.filter(observer_ => observer_.observerName !== observer.observerName)])

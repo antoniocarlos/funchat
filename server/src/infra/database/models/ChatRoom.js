@@ -11,16 +11,11 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class ChatRoom extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+
     static associate({ User, Observer, Message }) {
-      // define association here
-      this.hasMany(User, { as: 'users' }) // users
-      this.hasMany(Observer, { as: 'observers' }) // observers
-      this.hasMany(Message, { as: 'messages' }) // messages
+      this.hasMany(User, { as: 'users' })
+      this.hasMany(Observer, { as: 'observers' })
+      this.hasMany(Message, { as: 'messages' })
     }
   };
   ChatRoom.init({

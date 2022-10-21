@@ -42,9 +42,7 @@ export default function Register(props) {
   });
   const [errors, setErrors] = useState({});
 
-  // live cycle hooks of the mutation
   const [registerUser, { loading }] = useMutation(REGISTER_USER, {
-    // update(cache, results)
     onCompleted: (_, __) => props.history.push('/'),
     onError: err => setErrors(err.graphQLErrors[0].extensions.errors),
   });
@@ -57,7 +55,7 @@ export default function Register(props) {
 
   const handleFormSet = useCallback(
     value => {
-      setVariables({ ...variables, ...value }); // ISO String, ex: "2016-11-19T12:00:00.000Z"
+      setVariables({ ...variables, ...value });
     },
     [setVariables, variables],
   );
