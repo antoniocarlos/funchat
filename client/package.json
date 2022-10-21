@@ -87,7 +87,11 @@
     ]
   },
   "devDependencies": {
-    "sass": "^1.55.0"
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
+    "@types/react-router-dom": "^5.3.3",
+    "sass": "^1.55.0",
+    "typescript": "^4.8.4"
   },
   "jest": {
     "roots": [
@@ -140,7 +144,10 @@
   },
   "babel": {
     "presets": [
-      "react-app"
+      "react-app",
+      "react",
+      "es2015",
+      "stage-2"
     ]
   },
   "eslintConfig": {
