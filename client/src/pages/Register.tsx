@@ -3,7 +3,23 @@ import { Row, Col, Form, Button } from 'react-bootstrap';
 import { gql, useMutation } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
+
+import { History } from 'history';
+
 import 'react-day-picker/lib/style.css';
+
+interface ChildComponentProps {
+  history : History
+}
+
+interface Erro {
+  email?: string
+  userName?: string
+  birthDate?: string
+  imageUrl?: string
+  password?: string
+  confirmPassword?: string
+}
 
 const REGISTER_USER = gql`
   mutation register(
@@ -31,7 +47,7 @@ const REGISTER_USER = gql`
   }
 `;
 
-export default function Register(props) {
+const Register: React.FC<ChildComponentProps> = ({ history }) => {
   const [variables, setVariables] = useState({
     email: '',
     userName: '',
@@ -40,28 +56,28 @@ export default function Register(props) {
     password: '',
     confirmPassword: '',
   });
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<Erro>({});
 
   const [registerUser, { loading }] = useMutation(REGISTER_USER, {
-    onCompleted: (_, __) => props.history.push('/'),
+    onCompleted: () => history.push('/'),
     onError: err => setErrors(err.graphQLErrors[0].extensions.errors),
   });
 
-  const submitRegisterForm = e => {
+  const submitRegisterForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     registerUser({ variables });
   };
 
   const handleFormSet = useCallback(
-    value => {
+    (value: {[key: string]: string}) => {
       setVariables({ ...variables, ...value });
     },
     [setVariables, variables],
   );
 
   const handleChangeBirthDate = useCallback(
-    day => {
+    (day: Date) => {
       setVariables({ ...variables, birthDate: day.toISOString() });
     },
     [setVariables, variables],
@@ -162,3 +178,5 @@ export default function Register(props) {
     </Row>
   );
 }
+
+export default Register;
