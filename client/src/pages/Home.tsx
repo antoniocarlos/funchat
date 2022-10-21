@@ -8,7 +8,7 @@ import {
 } from 'react-bootstrap';
 import { History } from 'history';
 
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { useAuth } from '../hooks/auth';
 
