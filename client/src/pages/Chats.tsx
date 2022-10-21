@@ -2,10 +2,28 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { BsFillPersonFill, BsEyeFill, BsFillEnvelopeFill } from 'react-icons/bs';
 import { Navbar, Row, Col, Form, Button, Card } from 'react-bootstrap';
 
+import { History } from 'history';
+
 import { useAuth } from '../hooks/auth';
 import { useChatRoom } from '../hooks/chatRoom';
 
-export default function Chats({ history }) {
+interface ChildComponentProps {
+  history : History
+}
+
+interface Message {
+  sender: string
+  content: string
+}
+
+interface ChatRoom {
+  name: string
+  messages: Array<Message>
+  users: []
+  observers: []
+}
+
+const Chats: React.FC<ChildComponentProps> = ({ history }) => {
   const [searchField, setSearchField] = useState('');
 
   const { logoff } = useAuth();
@@ -13,18 +31,18 @@ export default function Chats({ history }) {
 
   useEffect(() => {
     getChatRooms();
-  },[]);
+  });
 
   const logout = () => {
     logoff();
     history.push('/');
   };
 
-  const handleEnterChatRoom = useCallback((e) => {
-    history.push(`/chat/${e}`);
-  }, []);
+  const handleEnterChatRoom = useCallback((chatRoomName: string) => {
+    history.push(`/chat/${chatRoomName}`);
+  }, [history]);
 
-  const submitSearchField = (e) => {
+  const submitSearchField = (e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
     history.push(`/chat/${searchField}`);
   };
@@ -46,7 +64,7 @@ export default function Chats({ history }) {
 
       <Row className="p-2 justify-content-center mt-5 mb-5">
         <Col sm={10} md={8} lg={8}>
-          <Form onSubmit={submitSearchField}>
+          <Form onSubmit={e => submitSearchField(e)}>
             <Form.Group className="d-flex align-items-center m-0">
               <Form.Control
                 type="text"
@@ -57,7 +75,7 @@ export default function Chats({ history }) {
               />
               <i
                 className="fas fa-paper-plane fa-2x text-primary ml-2"
-                onClick={submitSearchField}
+                onClick={e => submitSearchField(e)}
                 role="button"
               />
             </Form.Group>
@@ -69,7 +87,7 @@ export default function Chats({ history }) {
         <Col sm={10} md={8} lg={8}>
 
           {chatRooms &&
-            chatRooms.map(chatRoom => (
+            chatRooms.map((chatRoom: ChatRoom) => (
               <Card
                 className="text-grey mb-2 shadow" key={chatRoom.name}
               >
@@ -86,7 +104,6 @@ export default function Chats({ history }) {
                       :
                       <Card.Title>Sem mensagens</Card.Title>
                   }
-
 
                 </Card.Body>
                 <Card.Footer className="d-flex">
@@ -105,3 +122,5 @@ export default function Chats({ history }) {
     </>
   );
 }
+
+export default Chats;
