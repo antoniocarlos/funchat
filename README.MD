@@ -38,7 +38,7 @@ git clone https://github.com/antoniocarlos/funchat.git
 
 Acesse a pasta server
 ```
-cd server
+cd funchat/server
 ```
 
 Copie e renomeando o arquivo de variáveis de ambiente
@@ -50,8 +50,12 @@ Executando o docker-compose
 ```
 docker-compose up --build
 ```
+* Espera aparecer a mensagem "Database is connected!!"
 
 Executando as migrations
+
+* Abra uma outra instancia do terminal
+
 ```
 docker exec -it server_fun-chat-api_1 sh -c "npm run migrate"
 ```
@@ -63,7 +67,7 @@ docker exec -it server_fun-chat-api_1 sh -c "npm run seed"
 
 ### Cliente - com Yarn
 
-Exige Node 16.13 ou maior
+Exige Node 16.13.1 ou maior
 
 Na pasta do cliente
 ```
