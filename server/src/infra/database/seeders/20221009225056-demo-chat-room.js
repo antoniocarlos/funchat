@@ -2,7 +2,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert('chatRooms', [{
-      name: 'Test room',
+      name: 'test',
       createdAt: new Date(),
       updatedAt: new Date()
     }]);
