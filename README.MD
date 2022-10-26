@@ -69,7 +69,13 @@ docker exec -it server_fun-chat-api_1 sh -c "npm run seed"
 
 Exige Node 16.13.1 ou maior
 
-Na pasta do cliente
+Navegue até a pasta client
+
+```
+cd funchat/client
+```
+
+Execute
 ```
 yarn
 ```
@@ -78,6 +84,14 @@ Rodando o cliente
 ```
 yarn start
 ```
+
+Exemplo de usuário
+
+Email:
+johndoe@test.com
+
+Senha:
+test
 
 ## 🤖 Tecnologias usadas
 
