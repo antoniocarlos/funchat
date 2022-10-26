@@ -31,7 +31,7 @@ const Chats: React.FC<ChildComponentProps> = ({ history }) => {
 
   useEffect(() => {
     getChatRooms();
-  });
+  }, []);
 
   const logout = () => {
     logoff();
@@ -60,7 +60,6 @@ const Chats: React.FC<ChildComponentProps> = ({ history }) => {
           Logout
           </Button>
       </Navbar>
-
 
       <Row className="p-2 justify-content-center mt-5 mb-5">
         <Col sm={10} md={8} lg={8}>
