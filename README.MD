@@ -6,7 +6,7 @@ O FunChat é uma aplicação de salas de bate-papo simples e direta ao ponto. Vo
 
 ![Screenshot](docs/funChat_6.gif)
 
-Por meio de subscriptios o sistema atualiza a lista de participantes assim como as mensagens enviadas em cada sala 
+Por meio de subscriptios o sistema atualiza a lista de participantes assim como as mensagens enviadas em cada sala!
 
 ![Screenshot](docs/funChat_7.PNG)
 
